@@ -1,0 +1,140 @@
+<!-- Три колонки-->
+<!-- <h1>,...,<h6> (один или несколько из этих тегов) и <blockquote>-->
+<!--<small>, <span>, <img>, <br>, <a>, <b>, <em>, <i> — (2),-->
+<!-- <table>, <td>, <th>, <tr> — (4)-->
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Мой профиль</title>
+  <style type="text/css">
+  body {
+    font: 0.8em Arial, Helvetica, sans-serif; /* Шрифт на веб-странице */
+    background: #f6c07e; /* Цвет фона */
+    color: rgb(48, 48, 37); /* Цвет текста */
+  }
+  
+  #header {
+    font-size: 2.5em; /* Размер текста */
+    padding: 10px; /* Отступы вокруг текста */
+    background: #563609; /* Цвет фона шапки */
+    color: #e6d3b9;
+    width: 100%;
+    position: fixed;
+  }
+  
+  #nav {
+    float: left;
+    width: 15%;
+    padding: 5px;
+    background: #feddb4;
+    position: fixed;
+    top: 70px; /* высота header */
+    bottom: 30px; /* высота footer */
+    overflow-y: auto; /* добавляет прокрутку, если содержимое не помещается */
+   
+  }
+  #aside {
+    width: 12%;
+    float: right;
+    align-content: center;
+    display: flex;
+    align-items: center; /* Выравнивание по вертикали */
+    margin-left: 2px;
+    flex-direction: column;
+  
+  }
+  
+  #aside price{
+    margin-top: 1px;
+    display: flex;
+    border: 2px solid #492e08;
+    padding: 5px;
+    height: 310px;
+    justify-content: center; /* Выравнивание по горизонтали */
+    align-items: center; /* Выравнивание по вертикали */
+  }
+  
+  #content{
+    margin: 0 16%;
+    background: #f6c07e;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-right:5px;
+  }
+  #content element{ 
+    margin-top: 1px;
+    border: 2px solid #492e08; /* Параметры рамки */
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    height: 300px;
+  }
+  
+  #element img {
+    border: 2px solid #492e08; /* Параметры рамки */
+    flex-shrink: 0;
+    margin-right: 5%;
+    width: 300px;
+    height: 200px;
+  }
+  
+  #footer {
+    background: #392406; /* Цвет фона подвала */
+    color: #e6d3b9; /* Цвет текста */
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 5px; /* Отступы вокруг текста */
+    clear: left; /* Отменяем действие float */
+  }
+  
+  #content w{
+    height: 60px;
+  
+  }
+  
+  #aside w{
+    height: 60px;
+  
+  }
+  a { color: #4c2911; /* Цвет ссылок */ }
+  h2 { margin: 0 0 1em; }
+  </style>
+  <body>
+    <div id="container">
+      
+      <div id="header">Книжный магазин ВКниге</div>
+      
+      <div id="nav">
+        <h3><a href="Profile.html">👀 Мой профиль</a></h3>
+        <h3><a href="Catalog.html">🕮 Каталог</a> </h3>
+        <h3><a href="MyBooks.html">📚 Мои книги</a></h3>
+        <h3><a href="DeferredBooks.html">♡ Отложенные книги</a></h3>
+        <h3><a href="Cart.html"> 🛒Корзина</a></h3>
+      </div>
+  
+      <div id="aside">
+        <w></w>
+        <h3><a href="Error.html">Редактировать данные</a></h3>
+        <h3><a href="Error.html">Изменить пароль</a></h3>
+      </div>
+  
+      <div id="content">
+        <w></w>
+        <img src="./images/avatar.jpeg" width="300">
+      
+          <blockquote>
+            <b>Фамилия: </b><i>Белов</i> <br>
+            <b>Имя: </b><em>Владимир</em> <br>
+            <b>Телефон: </b><i>+79270323193</i>
+          </blockquote>
+      </div>
+      
+      <div id="footer">&copy;2024, гр. 4310, Белов Владимир</div>
+    
+    </div>
+  </body>
+  </html>

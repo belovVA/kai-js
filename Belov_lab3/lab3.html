@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="UTF-8"><title>Лабораторная работа 3</title>
+</head>
+<style type="text/css">
+  table {
+   border-collapse: collapse;
+   border: 2px solid;
+  }
+  td {
+  width: 50px;
+  height: 50px;
+   border: 2px solid;
+  }
+  .r1 {
+  background-color: gray;
+  }
+  .r2 {
+  background-color: darkgray;
+  }
+  .circle_black {
+   background: black;
+   border-radius: 50%;
+   height: 45px;
+   width: 45px;
+   margin: 0px 0px 0px 2px;
+  }
+  .circle_white {
+   background: white;
+   border-radius: 50%;
+   height: 45px;
+   width: 45px;
+   margin: 0px 0px 0px 2.5px;
+  }
+
+  #tableSh {
+  float: left;
+  width: 60%;
+  padding: 5px;
+  }
+
+
+  #conteiner{
+    width: 100%;
+  }
+  </style>
+  
+<body>
+  <div id= "container">
+    <div id="tableSh">
+      <blockquote>
+        4310. Белов В.А. 2023-2024 <br>  
+        Задание. Построить расстановку шашек 8 на 8. Черные сверху</blockquote>
+      <script type="text/javascript">
+        var str, sel, n = 8, i, j;
+        document.write("<table>");
+        for (i = 0; i < n; i++) {
+          document.write("<tr>");
+          for (j = 0; j < n; j++) {
+            sel = (i + j)%2;
+            if (sel == 0) {
+            str = "class='r1'";
+            } else {
+            str = "class='r2'";
+            }
+            if(((i == 0 || i == 2) && j %2 == 0) || (i == 1 && j % 2 != 0)){
+            document.write("<td " + str + "><div class='circle_black'></div></td>");
+            }else if(((i == 5 || i == 7) && j % 2 != 0) || (i == 6 && j % 2 == 0)){
+            document.write("<td " + str + "><div class='circle_white'></div></td>");
+            }else{
+            document.write("<td " + str + "></td>");
+            }
+          }
+          document.write("</tr>");
+        }
+        document.write("</table>");
+        </script>
+    </div>
+    <div id="other_ex">
+      <table width="100%" cellspacing="5" border="solid" >
+
+        <tr>
+          <td>Задание №1:</td>
+          <td>
+          Введите время. Определим время, которое будет
+          через минуту <br>
+          </td>
+          <td>
+          <input type="button" value="Ввести время" onclick="get_time();">
+          </td>
+        </tr>
+
+        <tr>
+          <td>Задание №2  :</td>
+          <td> Дано натуральное число. <br> Дописать к нему цифру k в конец и начало</td>
+        </tr>
+
+        <tr>
+          <td>Параметр №2:</td>
+          <td>
+            Число = <input type="text" id="parametr_1">
+            k = <input type="text" id="parametr_2">
+          </td>
+          <td>
+            <input type="button" value="Вычислить №2" onclick="calculate_1();">
+          </td>
+        </tr>
+        
+        <tr>
+          <td>Результат №2:</td><td><p id="result_1"></td>
+            <td></td>
+        </tr>
+        <tr>
+          <td>Задание №3  :</td>
+          <td> . Женщина шла на базар продавать яйца. Ее случайно сбил с ног всадник, в результате
+            чего все яйца разбились. Всадник предложил оплатить убытки и спросил, сколько у
+            нее было яиц. Женщина сказала, что точного числа не помнит, но когда она брала яйца
+            парами, то оставалось одно яйцо. Одно яйцо оставалось также, когда она брала по 3,
+            4, 5 и 6 яиц, но когда она брала по 7 штук, то в остатке ничего не было. Какое
+            минимальное число яиц могло быть в корзине?</td>
+            <td>
+              <input type="button" value="Вычислить №3" onclick="calculate_2();">
+            </td>
+        </tr>
+        <tr>
+          <td>Результат №3:</td><td><p id="result_2"></td>
+        </tr>
+      </table>
+       
+    </div>
+  </div>
+</body>
+<script type="text/javascript">
+function calculate_1() {
+  var parametr_1 = document.getElementById("parametr_1").value;
+  var parametr_2 = document.getElementById("parametr_2").value;
+  var result_1 = document.getElementById("result_1");
+  if (!isNaN(parseInt(parametr_1)) && (parametr_1 >= 0 && Math.floor(parametr_1) === +parametr_1) 
+    && !isNaN(parseInt(parametr_2)) && (parametr_2 >= 0 && parametr_2 <= 9)
+    && (parametr_2 >= 0 && Math.floor(parametr_2) === +parametr_2)){
+      result_1.innerHTML = (parametr_2) + String(parametr_1) + String(parametr_2);
+  } else {
+      result_1.innerHTML = "Error";
+  }
+}
+
+function calculate_2() {
+var result_2 = document.getElementById("result_2");
+var x = 1;
+var rez;
+  while (true){
+    if ((x % 2 == 1) && (x % 3 == 1) && (x % 4 == 1) && (x % 5 == 1) && (x % 6 == 1) && (x % 7 == 0)){
+      rez = x;
+      break;
+    }
+    x ++;
+  }
+result_2.innerHTML = rez;
+}
+
+function get_time(){
+  var s = prompt("Введи время форматом XX:XX, например 20:24", "00:00");
+  s = s.split(':');
+  var hours = parseInt(s[0]);
+  var minutes = parseInt(s[1]);
+
+  if (!isNaN(hours) && !isNaN(minutes) && (hours >= 0 && hours <= 23) && (minutes >= 0 && minutes <= 59)) {
+      minutes = minutes + 1;
+      if (minutes >= 60){
+        minutes = minutes % 60;
+        hours = hours + 1;
+        if (hours >= 24){
+          hours = hours % 24; // Обработка перехода на следующий день если часов больше или равно 24
+        }
+      }
+
+      var formattedHours = (hours < 10) ? "0" + hours : hours; // Добавление ведущего нуля для часов < 10
+      var formattedMinutes = (minutes < 10) ? "0" + minutes : minutes; // Добавление ведущего нуля для минут < 10
+
+      alert("Ваше время через минуту: " + formattedHours + ":" + formattedMinutes);  
+  } else {
+      alert("Введен неправильный формат времени");
+  }
+
+}
+</script>
+</html>

@@ -1,0 +1,189 @@
+<!--15. Дано натуральное число N (N> 9). Определить количество нулей, идущих подряд в
+младших разрядах данного числа-->
+<!--12 15 1 1 1 2 2 4 2 3 2 2-->
+<!--3. В качестве интерактивного элемента использовать: 1 — кнопку,
+4.Обеспечить использование синтаксиса функциональных литералов: 1 — нет,.
+5. Обеспечить использование синтаксиса ассоциативных массивов: 1 — нет,
+6. Размещать данные, необходимые для решения поставленной задачи: 2 — в массивах.
+7. При загрузке на странице должен выводиться текущий день недели, число, месяц и
+год. Для месяцев и дней недели следует организовать массивы. При этом вывод
+должен быть организован с применением таблицы, в которой: 2 —
+две строки, где в первой строке размещается год число и месяц, а во второй день
+недели.
+8. Далее на разрабатываемой HTML - странице выводить количество дней оставшихся
+до сессии 4 — в нередактируемом текстовом поле.
+9. Далее на HTML - странице нужно разместить кнопку, при щелчке на которую следует
+запрашивать памятную для вас дату и ниже (или сбоку) выводит количество дней, которые минуло после неё (дата должна быть такой, что
+количество дней превосходит 365); 2 — выводить в абзаце;
+10. Найти и вывести на HTML - странице сумму заданного количества членов числовой
+последовательности, начиная с указанного (по номеру), задав эти параметры
+следующим далее образом (см. ниже следующие пп.). Указанную сумму предлагается
+вычислять для одной из следующих целочисленных числовых последовательностей:
+3. (n - 2)^2
+11. Задав номер первого её члена и количество слагаемых последующих членов в: 1 —
+отдельных текстовых полях; 2 — в одном текстовом поле
+12. В код кнопки для вычисления суммы определённого числа членов
+последовательности ввести проверку на корректность введённых данных. При этом
+для проверки корректности ввода данных запрещено использовать функцию: 2 — parseFloat();
+-->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> Лаб4</title>
+</head>
+<body onload="getTime()">
+<h3> Дано натуральное число N (N> 9). Определить количество нулей, идущих подряд в
+  младших разрядах данного числа</h3>
+<p>Введите натуральное число N (N > 9):</p>
+<input type="text" id="numberInput">
+<button onclick="replaceLastDigit()">Высчитать</button>
+<p id="result"></p>
+
+<script>
+  function countConsecutiveZeros(N) {
+    // Проверяем, что N является натуральным числом и N > 9
+    if (typeof N !== 'number' || N <= 9 || !Number.isInteger(N)) {
+        return "N должно быть натуральным числом больше 9.";
+    }
+
+    // Преобразуем число N в строку для работы с его разрядами
+    const strN = String(N);
+
+    let Maxcount = 0
+    let count = 0;
+    let i = strN.length - 1; // Начинаем с конца числа
+
+    
+    while (i >= 0){
+      while (strN[i] === '0' && i >= 0) {
+        count++; // Увеличиваем счетчик нулей
+        i--; // Переходим к следующему символу влево
+      }
+      if (count > Maxcount) {
+        Maxcount = count;
+      }
+      count = 0;
+      i--;
+
+
+    }
+    
+    return Maxcount;
+}
+
+
+function replaceLastDigit() {
+    let number = document.getElementById("numberInput").value;
+    document.getElementById("result").textContent = `Количество нулей идущих подряд: ${countConsecutiveZeros(Number(number))}`;
+}
+</script>
+
+<h3>Текущая дата</h3>
+    <table>
+        <tr>
+            <th id="YMD"></th>
+        </tr>
+        <tr>
+            <td id="dayOfWeek"></td>
+        </tr>
+    </table>
+
+    <script>
+      function getTime(){
+        const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+        const today = new Date();
+        const dayOfWeek = daysOfWeek[today.getDay()];
+        const date = today.getDate();
+        const month = months[today.getMonth()];
+        const year = today.getFullYear();
+
+        document.getElementById('dayOfWeek').textContent = dayOfWeek;
+        document.getElementById('YMD').textContent = `${year} ${date} ${month}`;
+      }
+    </script>
+    
+
+    <p><h3>Дней до сессии: 
+      <input type="text" id="daysLeft" readonly>
+    </h3></p>
+
+    <script>
+       // Function to calculate days left until June 10, 2024
+       function calculateDaysLeft() {
+          const sessionDate = new Date('2024-06-10');
+          const currentDate = new Date();
+          const daysLeft = Math.ceil((sessionDate - currentDate) / (1000 * 60 * 60 * 24));
+
+          document.getElementById('daysLeft').value = daysLeft;
+      }
+      calculateDaysLeft();
+    </script>
+    
+
+    <h3>Рассчет количества дней после выбранной даты</h3>
+    <input type="date" id="dateInput">
+    <button onclick="calculateDays()">Рассчитать дни</button>
+    <p id="daysPassed"></p>
+
+    <script>
+            function enterDate() {
+          const date = prompt('Enter your memorable date (YYYY-MM-DD):');
+          document.getElementById('memorableDate').textContent = date;
+      }
+
+        function calculateDays() {
+            const dateInput = document.getElementById('dateInput').value;
+            const inputDate = new Date(dateInput);
+            const currentDate = new Date();
+            const timeDifference = currentDate - inputDate;
+            const daysPassed = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+            if (daysPassed > 365) {
+                document.getElementById('daysPassed').innerText = `Дней прошло после выбранной даты: ${daysPassed}`;
+            } else {
+                document.getElementById('daysPassed').innerText = 'Выбранная дата должна быть такая, что количество дней превышает 365';
+            }
+        }
+    </script>
+
+
+    <h3>Дана числовая последовательность (n-2)^2</h3>
+    <h4>Найти сумму заданного количества членов числовой
+      последовательности, начиная с указанного</h4>
+    
+      
+    <div>
+        <label for="startNumber">Введите через пробел Стартовый номер члена прогресси, </label>
+        <label for="numSum">Количество элементов прогрессии</label>
+        <input type="text" id="values" >
+    </div>
+
+    <button onclick="calculateSum()">Высчитать сумму</button>
+    <p>Высчитанная сумма: <span id="sumResult"></span></p>
+
+    <script>
+      function calculateSum() {
+        let values = document.getElementById('values').value.split(' ');
+
+        let startNumber = parseInt(values[0]);
+        let numSum = parseInt(values[1]);
+        if (!isNaN(startNumber) && !isNaN(numSum) && startNumber >= 0 && numSum >= 0){
+
+          let sum = 0;
+
+          for (let i = startNumber; i < startNumber + numSum; i++){
+              sum += Math.pow(i - 2, 2);
+          }
+
+          document.getElementById('sumResult').textContent = sum;
+        } else {
+          document.getElementById('sumResult').textContent = "Invalid values";
+        }
+      }
+    </script>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!--24. Дано натуральное число N. Получить новое число М, которое образуется из числа N
+путем замены последней цифры на значение наибольшей цифры в записи числа N.-->
+<!--23 24 2 1 1 2 1 4 2 6 2 1-->
+<!-- 3.В качестве интерактивного элемента использовать: 2 — абзац с текстом.
+4.Обеспечить использование синтаксиса функциональных литералов: 1 — нет
+5.Обеспечить использование синтаксиса ассоциативных массивов: 1 — нет
+6.Pазмещать данные, необходимые для решения поставленной задачи 2 — в массивах
+7.При загрузке на странице должен выводиться текущий день недели, число, месяц и
+год. Для месяцев и дней недели следует организовать массивы. При этом вывод
+должен быть организован с применением таблицы, в которой: 1 — три строки, где в
+первой строке размещается день недели, во второй число и месяц, а в третьей год;
+8.Далее на разрабатываемой HTML - странице выводить количество дней оставшихся
+до сессии: 4 — в нередактируемом текстовом поле.
+9. Далее на HTML - странице нужно разместить кнопку, при щелчке на которую следует
+запрашивать памятную для вас дату и ниже (или сбоку) выводить: 2 — выводить в абзаце;
+10. (-1)^(n-1) * (n+4)^2
+11. Задав номер первого её члена и количество слагаемых последующих членов в: 2 — в одном текстовом поле,
+12. В код кнопки для вычисления суммы определённого числа членов
+последовательности ввести проверку на корректность введённых данных. При этом
+для проверки корректности ввода данных запрещено использовать функцию: 1 —
+isNaN();
+-->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> Лаб4</title>
+</head>
+<body onload="getTime()">
+<h3> 24. Дано натуральное число N. Получить новое число М, которое образуется из числа N
+  путем замены последней цифры на значение наибольшей цифры в записи числа N.</h3>
+<p>Введите натуральное число N:</p>
+<input type="text" id="numberInput">
+<p id="message">Нажмите для получения результата.</p>
+
+<p id="result"></p>
+
+<script>
+
+
+function get_value() {
+    let number = document.getElementById("numberInput").value;
+    document.getElementById("result").textContent = `New Number: ${replaceLastDigit(Number(number))}`;
+}
+
+function replaceLastDigit(number) {
+  const getSmallestDigit = (num) => {
+    let digits = num.toString().split('').map(Number);
+    return Math.max(...digits);
+  };
+
+    let newNumber = String(number).slice(0, -1) + String(getSmallestDigit(Number(number)));
+    return newNumber;
+}
+
+// Добавляем обработчик события клика на абзаце с id="message"
+document.getElementById("message").addEventListener("click", get_value);
+</script>
+
+<h3>Текущая дата</h3>
+    <table>
+        <tr>
+            <th id="dayOfWeek"></th>
+        </tr>
+        <tr>
+            <td id="dateAndMonth"></td>
+        </tr>
+        <tr>
+            <td id="year"></td>
+        </tr>
+    </table>
+
+    <script>
+      function getTime(){
+        const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+        const today = new Date();
+        const dayOfWeek = daysOfWeek[today.getDay()];
+        const date = today.getDate();
+        const month = months[today.getMonth()];
+        const year = today.getFullYear();
+
+        document.getElementById('dayOfWeek').textContent = dayOfWeek;
+        document.getElementById('dateAndMonth').textContent = `${date} ${month}`;
+        document.getElementById('year').textContent = year;
+
+        
+      }
+    </script>
+    
+  
+    <p><h3>Дней до сессии: <input type="text"  id="daysLeft" readonly></h3></p>
+    <script>
+       function calculateDaysLeft() {
+          const sessionDate = new Date('2024-06-10');
+          const currentDate = new Date();
+          const daysLeft = Math.ceil((sessionDate - currentDate) / (1000 * 60 * 60 * 24));
+          document.getElementById('daysLeft').value = daysLeft;
+      }
+
+
+
+      calculateDaysLeft();
+
+    </script>
+    
+    <h3>Рассчет количества дней после выбранной даты</h3>
+    <input type="date" id="dateInput">
+    <button onclick="calculateDays()">Рассчитать дни</button>
+    <p id="daysPassed"></p>
+
+    <script>
+            function enterDate() {
+          const date = prompt('Enter your memorable date (YYYY-MM-DD):');
+          document.getElementById('memorableDate').textContent = date;
+      }
+
+        function calculateDays() {
+            const dateInput = document.getElementById('dateInput').value;
+            const inputDate = new Date(dateInput);
+            const currentDate = new Date();
+            const timeDifference = currentDate - inputDate;
+            const daysPassed = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+            if (daysPassed > 365) {
+                document.getElementById('daysPassed').innerText = `Дней прошло после выбранной даты: ${daysPassed}`;
+            } else {
+                document.getElementById('daysPassed').innerText = 'Выбранная дата должна быть такая, что количество дней превышает 365';
+            }
+        }
+    </script>
+
+    <h3>Дана числовая последовательность (-1)^(n-1) * (n+4)^2</h3>
+    <h4>Найти сумму заданного количества членов числовой
+      последовательности, начиная с указанного</h4>
+    
+
+    
+    <div>
+      <label for="startNumber">Введите через пробел Стартовый номер члена прогресси, </label>
+      <label for="numSum">Количество элементов прогрессии</label>
+      <input type="text" id="values" >
+    </div>
+    <button onclick="calculateSum()">Высчитать сумму</button>
+    <p>Высчитанная сумма: <span id="sumResult"></span></p>
+
+    <script>
+
+      function isNonNegativeInteger(value) {
+          return /^[0-9]+$/.test(value); // Проверка является ли числом без использования isNan
+      }
+
+      function calculateSum() {
+        let values = document.getElementById('values').value.split(' ');
+
+        let startNumber = parseInt(values[0]);
+        let numSum = parseInt(values[1]);
+        if (isNonNegativeInteger(values[0]) && isNonNegativeInteger(values[1]) && startNumber >= 0 && numSum >= 0) {
+
+          let sum = 0;
+
+          for (let i = startNumber; i < startNumber + numSum; i++){
+              sum += Math.pow(-1, i - 1) * Math.pow(i + 4, 2);
+          }
+
+          document.getElementById('sumResult').textContent = sum;
+        } else {
+          document.getElementById('sumResult').textContent = "Invalid values";
+        }
+      }
+    </script>
+</body>
+</html>

@@ -1,0 +1,215 @@
+<!--12. 3 1 23 5-->
+<!--3) — Запросите ввод времени в часах и минутах. Определите время, которое будет
+через минуту. Предусмотреть три случая: а) увеличение только минут; б) увеличение
+числа часов обнуление числа минут; в) переход через полночь (00:00)-->
+<!--1) рисунок на выбор из 4. Берем верхний левый-->
+<!--23. Дано натуральное число N. Получить новое число М, которое образуется из числа N
+путем замены последней цифры на значение наименьшей цифры в записи числа N-->
+<!--5. Даны натуральные числа n, k. Проверить, есть ли в записи числа n^k
+ цифра m-->
+
+ <!DOCTYPE html>
+<html>
+<head>
+ <meta charset="UTF-8"><title>Лабораторная работа 3</title>
+</head>
+<style type="text/css">
+  table {
+   border-collapse: collapse;
+   border: 2px solid;
+  }
+  td {
+  width: 50px;
+  height: 50px;
+  }
+  .r1 {
+  background-color: green;
+  }
+  .r2 {
+  background-color: yellow;
+  }
+
+  #tableSh {
+  float: left;
+  width: 60%;
+  padding: 5px;
+  border: 2px;
+  }
+
+
+  #conteiner{
+    width: 100%;
+  }
+  </style>
+  
+<body>
+  <div id= "container">
+    <!--построение расстановки-->
+    <div id="tableSh">
+      <blockquote>
+        4310. Гумеров Б.Р. 2023-2024 <br>  
+        Задание 2. Построить расстановку 1 из 4х на выбор</blockquote>
+      <script type="text/javascript">
+        var str, sel, n = 8, i, j;
+        document.write("<table>");
+        for (i = 0; i < n; i++) {
+          document.write("<tr>");
+          for (j = 0; j < n; j++) {
+            if (j > i) {
+            str = "class='r2'";
+            } else {
+            str = "class='r1'";
+            }
+            
+            document.write("<td " + str + "></td>");
+          }
+          document.write("</tr>");
+        }
+        document.write("</table>");
+        </script>
+    </div>
+
+    <div id="other_ex">
+      <table width="100%" cellspacing="5" border="solid" >
+
+        <tr>
+          <td>Задание №1:</td>
+          <td>
+          Введите время. Определим время, которое будет
+          через минуту <br>
+          </td>
+          <td>
+          <input type="button" value="Ввести время" onclick="get_time();">
+          </td>
+        </tr>
+        
+        <tr>
+          <td>Задание №3  :</td>
+          <td> 23. Дано натуральное число N. Получить новое число М, которое образуется из числа N
+            путем замены последней цифры на значение наименьшей цифры в записи числа N</td>
+        </tr>
+
+        <tr>
+          <td>Параметр №3:</td>
+          <td>
+            N = <input type="text" id="parametr_1">
+          </td>
+          <td>
+            <input type="button" value="Вычислить №3" onclick="calculate_1();">
+          </td>
+        </tr>
+        
+        <tr>
+          <td>Результат №3:</td><td><p id="result_1"></td>
+            <td></td>
+        </tr>
+        <tr>
+          <td>Задание №4  :</td>
+          <td>Даны натуральные числа n, k. Проверить, есть ли в записи числа n^k
+            цифра m</td>
+            <td>
+              
+            </td>
+        </tr>
+        <tr>
+          <td>Параметр №4:</td>
+          <td>
+            n = <input type="text" id="parametr_2">
+            k = <input type="text" id="parametr_3">
+            m = <input type="text" id="parametr_4">
+
+          </td>
+          <td>
+            <input type="button" value="Вычислить №4" onclick="calculate_2();">
+          </td>
+        </tr>
+        <tr>
+          <td>Результат №4:</td><td><p id="result_2"></td>
+        </tr>
+      </table>
+       
+    </div>
+  </div>
+</body>
+<script type="text/javascript">
+
+// Вычисления для 1го задания
+function get_time(){
+  var s = prompt("Введи время форматом XX:XX, например 20:24", "00:00");
+  s = s.split(':');
+  var hours = parseInt(s[0]);
+  var minutes = parseInt(s[1]);
+
+  if (!isNaN(hours) && !isNaN(minutes) && (hours >= 0 && hours <= 23) && (minutes >= 0 && minutes <= 59)) {
+      minutes = minutes + 1;
+      if (minutes >= 60){
+        minutes = minutes % 60;
+        hours = hours + 1;
+        if (hours >= 24){
+          hours = hours % 24; // Обработка перехода на следующий день если часов больше или равно 24
+        }
+      }
+
+      var formattedHours = (hours < 10) ? "0" + hours : hours; // Добавление ведущего нуля для часов < 10
+      var formattedMinutes = (minutes < 10) ? "0" + minutes : minutes; // Добавление ведущего нуля для минут < 10
+
+      alert("Ваше время через минуту: " + formattedHours + ":" + formattedMinutes);  
+  } else {
+      alert("Введен неправильный формат времени");
+  }
+
+}
+
+// Вычисления для 3го задания
+function calculate_1() {
+    var parametr_1 = document.getElementById("parametr_1").value;
+    var result_1 = document.getElementById("result_1");
+
+    // Проверяем, что parametr_1 является числом и удовлетворяет условию
+    if (!isNaN(parametr_1) && Number.isInteger(parseFloat(parametr_1)) && parametr_1 >= 0) {
+        // Получаем новое значение parametr_1 с заменой последней цифры
+        var newParametr_1 = parametr_1.slice(0, -1) + getSmallestDigit(Number(parametr_1));
+
+        // Выводим результат на страницу
+        result_1.textContent = "M =" + String(newParametr_1);
+    } else {
+        // В случае ошибки выводим сообщение об ошибке
+        result_1.textContent = "Error";
+    }
+}
+
+function getSmallestDigit(num) {
+    let digits = num.toString().split('').map(Number);
+    return Math.min(...digits);
+}
+
+// Вычисления для 4го задания
+function calculate_2() {
+  var parametr_1 = document.getElementById("parametr_2").value;
+  var parametr_2 = document.getElementById("parametr_3").value;
+  var parametr_3 = document.getElementById("parametr_4").value;
+  var result_2 = document.getElementById("result_2");
+
+  if (!isNaN(parseInt(parametr_1)) && parametr_1 >= 0 &&
+      !isNaN(parseInt(parametr_2)) && parametr_2 >= 0 &&
+      !isNaN(parseInt(parametr_3)) && parametr_3 >= 0 && parametr_3 <= 9) {
+      var rez = (parametr_1) ** parametr_2;
+      var flag = false;
+      let temp = 0;
+      while (rez > 0){
+        temp = rez % 10;
+        rez = Math.floor(rez / 10);
+        if (temp == parametr_3){
+          flag = true;
+          break;
+        }
+      }
+      result_2.innerHTML = String(flag);
+
+  } else {
+      result_2.innerHTML = "Error";
+  }  
+}
+
+</script>
+</html>

@@ -1,0 +1,239 @@
+<!--4. 2 8 8 2-->
+<!--
+3. С помощью функций ввод/вывод данных и диалоговых окон необходимо выполнить
+одну из следующих последовательностей действий: 2) — Запросить два числа x, y и знак арифметической операции (+, -, *, /).
+Найти соответственно их сумму x+y, или разность x-y, или произведение x*y, или
+частное x/y. В случае ошибки в знаке арифметической операции или деления на 0
+вывести сообщение об ошибке.
+
+8) — По аналогии и в соответствии с примером из раздела «Пример №3.
+Использование метода document.write()» из закрашенных ячеек таблицы построить
+расстановку шашек на доску 8 на 8. Чёрные справа.
+
+Задачи:
+8. Найти наибольшую и наименьшую цифры в записи данного натурального числа.
+2. Даны два натуральных числа m и n{m< 9999, n < 9999). Проверить, есть ли в записи
+числа m цифры, совпадающие с цифрами в записи числа n
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="UTF-8"><title>Лабораторная работа 3</title>
+</head>
+<style type="text/css">
+  table {
+   border-collapse: collapse;
+   border: 2px solid;
+  }
+  td {
+  width: 50px;
+  height: 50px;
+   border: 2px solid;
+  }
+  .r1 {
+  background-color: gray;
+  }
+  .r2 {
+  background-color: darkgray;
+  }
+  .circle_black {
+   background: black;
+   border-radius: 50%;
+   height: 45px;
+   width: 45px;
+   margin: 0px 0px 0px 2px;
+  }
+  .circle_white {
+   background: white;
+   border-radius: 50%;
+   height: 45px;
+   width: 45px;
+   margin: 0px 0px 0px 2.5px;
+  }
+
+  #tableSh {
+  float: left;
+  width: 60%;
+  padding: 5px;
+  }
+
+
+  #conteiner{
+    width: 100%;
+  }
+  </style>
+  
+<body>
+  <div id= "container">
+    <div id="tableSh">
+      <blockquote>
+        4310. Валиев И.И.  2023-2024 <br>  
+        Задание. Построить расстановку шашек 8 на 8. Черные справа</blockquote>
+      <script type="text/javascript">
+        var str, sel, n = 8, i, j;
+        document.write("<table>");
+        for (i = 0; i < n; i++) {
+          document.write("<tr>");
+          for (j = 0; j < n; j++) {
+            sel = (i + j)%2;
+            if (sel == 0) {
+            str = "class='r1'";
+            } else {
+            str = "class='r2'";
+            }
+            if(((j == 5 || j == 7) && i %2 != 0) || (j == 6 && i % 2 == 0)){
+            document.write("<td " + str + "><div class='circle_black'></div></td>");
+            }else if(((j == 0 || j == 2) && i % 2 == 0) || (j == 1 && i % 2 != 0)){
+            document.write("<td " + str + "><div class='circle_white'></div></td>");
+            }else{
+            document.write("<td " + str + "></td>");
+            }
+          }
+          document.write("</tr>");
+        }
+        document.write("</table>");
+        </script>
+    </div>
+    <div id="other_ex">
+      <table width="100%" cellspacing="5" border="solid" >
+
+        <tr>
+          <td>Задание №1:</td>
+          <td>
+            Запросить два числа x, y и знак арифметической операции (+, -, *, /).
+            Найти их результат <br>
+          </td>
+          <td>
+          <input type="button" value="Ввести данные" onclick="get_values();">
+          </td>
+        </tr>
+
+        <tr>
+          <td>Задание №3  :</td>
+          <td>  Найти наибольшую и наименьшую цифры в записи данного натурального числа.</td>
+        </tr>
+
+        <tr>
+          <td>Параметр №3:</td>
+          <td>
+            Натуральное Число = <input type="text" id="parametr_1">
+          </td>
+          <td>
+            <input type="button" value="Вычислить №3" onclick="calculate_1();">
+          </td>
+        </tr>
+        
+        <tr>
+          <td>Результат №3:</td><td><p id="result_1"></td>
+            <td></td>
+        </tr>
+        <tr>
+          <td>Задание №4  :</td>
+          <td> . Даны два натуральных числа m и n{m< 9999, n < 9999). Проверить, есть ли в записи
+            числа m цифры, совпадающие с цифрами в записи числа n</td>
+            <td>
+              <input type="button" value="Вычислить №4" onclick="calculate_2();">
+            </td>
+        </tr>
+        <tr>
+          <td>Параметр №4:</td>
+          <td>
+            m = <input type="text" id="parametr_m">
+            n = <input type="text" id="parametr_n">
+          </td>
+          <td>
+            <input type="button" value="Вычислить №4" onclick="calculate_2();">
+          </td>
+        </tr>
+        <tr>
+          <td>Результат №4:</td><td><p id="result_2"></td>
+        </tr>
+      </table>
+       
+    </div>
+  </div>
+</body>
+<script type="text/javascript">
+
+function get_values(){
+  var x = prompt("Введите х");
+  var y = prompt("Введите y");
+  const validOperations = "+-*/";
+  var operation = prompt("Введите знак арифметической операции (+, -, *, /)");
+  var rez = 0;
+  if (isNaN(parseFloat(x)) || isNaN(parseFloat(y)) || !validOperations.includes(operation) || (operation === '/' && y === '0')){
+    alert("Ошибка в веденных данных");
+  } else {
+    x = parseFloat(x);
+    y = parseFloat(y);
+    switch (operation) {
+      case '+':
+        rez = x + y;
+        break;
+      case '-':
+        rez = x - y;
+        break;
+      case '*':
+        rez = x * y;
+        break;
+      case '/':
+        rez = x / y;
+        break;
+    }
+    alert ("Результат вычисление "+ x + operation + y + "=" + rez);
+  }
+}
+
+function getMinDigit(num) {
+    let digits = num.toString().split('').map(Number);
+    return Math.min(...digits);
+}
+
+function getMaxDigit(num) {
+    let digits = num.toString().split('').map(Number);
+    return Math.max(...digits);
+}
+
+function calculate_1() {
+  var parametr_1 = document.getElementById("parametr_1").value;
+  var result_1 = document.getElementById("result_1");
+  if (!isNaN(parseInt(parametr_1)) && (parametr_1 > 0 && Math.floor(parametr_1) === +parametr_1) ){
+      
+      result_1.innerHTML = "Max=" + String(getMaxDigit(parametr_1)) + ", Min = " + String(getMinDigit(parametr_1));
+  } else {
+      result_1.innerHTML = "Error";
+  }
+}
+
+function calculate_2() {
+  var param_m = document.getElementById("parametr_m").value;
+  var param_n = document.getElementById("parametr_n").value;
+
+  var result_2 = document.getElementById("result_2");
+  var flag = false;
+
+  if (!isNaN(param_m) && Number.isInteger(parseFloat(param_m)) && param_m >= 0 && param_m < 9999 &&
+      !isNaN(param_n) && Number.isInteger(parseFloat(param_n)) && param_n >= 0 && param_n < 9999 ) {
+    
+    // Преобразуем входные значения в массивы цифр
+    var m = param_m.toString().split('').map(Number);
+    var n = param_n.toString().split('').map(Number);
+
+    // Проверяем, содержится ли хотя бы одна цифра из m в n
+    for (let i = 0; i < m.length; i++) {
+      if (n.includes(m[i])) {
+        flag = true;
+        break;
+      }
+    }
+
+    result_2.textContent = flag;
+  } else {
+    result_2.textContent = "Error";
+  }
+}
+
+
+</script>
+</html>

@@ -1,0 +1,206 @@
+<!--4 26 2 1 1 2 1 1 2 5 4 3-->
+<!--26. Вычислить сумму тех чисел из заданного отрезка [a,b] (a, b — натуральные), в запись
+которых входит цифра k.
+3. В качестве интерактивного элемента использовать: 2 — абзац с текстом
+4. Обеспечить использование синтаксиса функциональных литералов: 1 — нет
+5. Обеспечить использование синтаксиса ассоциативных массивов: 1 — нет,
+6. Размещать данные, необходимые для решения поставленной задачи 2 — в массивах.
+7. При загрузке на странице должен выводиться текущий день недели, число, месяц и
+год. Для месяцев и дней недели следует организовать массивы. При этом вывод
+должен быть организован с применением таблицы, в которой: 1 — три строки, где в
+первой строке размещается день недели, во второй число и месяц, а в третьей год;
+8. Далее на разрабатываемой HTML - странице выводить количество дней оставшихся
+до сессии:1 — в текстовом поле;
+9. Далее на HTML - странице нужно разместить кнопку, при щелчке на которую следует
+запрашивать памятную для вас дату и ниже (или сбоку) выводить:  количество дней, которые минуло после неё (дата должна быть такой, что
+количество дней превосходит 365); 2 — выводить в абзаце;
+10.5:  (-1)^n * (n - 1)^3
+11. Задав номер первого её члена и количество слагаемых последующих членов в: 4 — одновременным запросом из одного диалогового окна
+12. В код кнопки для вычисления суммы определённого числа членов
+последовательности ввести проверку на корректность введённых данных. При этом
+для проверки корректности ввода данных запрещено использовать функцию: 3 — parseInt()
+-->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> Лаб4</title>
+</head>
+<body onload="getTime()">
+<h3>Вычислить сумму тех чисел из заданного отрезка [a,b] (a, b — натуральные), в запись
+  которых входит цифра k.</h3>
+Введите а = <input type="text" id="aInput">
+Введите b = <input type="text" id="bInput">
+Введите c = <input type="text" id="kInput">
+<p id="message">Нажмите для получения результата.</p>
+
+<p id="result"></p>
+
+<script>
+  function calculateSumValues(a,b,k){
+    let sum = 0;
+    for (let i = a; i < b + 1; i++) {
+      let temp = i.toString().split('').map(Number);
+      if (temp.includes(k)){
+        sum += i;
+      }
+    }
+    return sum;
+  }
+
+  function handleClick() {
+    let inputA = document.getElementById('aInput').value;
+    let inputB = document.getElementById('bInput').value;
+    let inputK = document.getElementById('kInput').value;
+
+    // Проверяем, что введены корректные числа
+    if (!isNaN(inputA) && Number.isInteger(parseFloat(inputA)) && inputA >= 0 &&
+      !isNaN(inputB) && Number.isInteger(parseFloat(inputB)) && inputB >= 0 && 
+      !isNaN(inputK) && Number.isInteger(parseFloat(inputK)) && inputK >= 0 ) {
+
+        let numberA = parseInt(inputA);
+        let numberB = parseInt(inputB);
+        let numberK = parseInt(inputK);
+
+        let sum = calculateSumValues(numberA, numberB, numberK);
+
+        // Выводим результат суммы в абзац с id="message"
+        document.getElementById("message").textContent = `Сумма чисел  равна ${sum}.`;
+    } else {
+        // Выводим сообщение об ошибке, если введены некорректные числа
+        document.getElementById("message").textContent = "Ошибка: введите корректные числа.";
+    }
+}
+
+// Добавляем обработчик события клика на абзаце с id="message"
+document.getElementById("message").addEventListener("click", handleClick);
+
+</script>
+
+<h3>Текущая дата</h3>
+    <table>
+        <tr>
+            <th id="dayOfWeek"></th>
+        </tr>
+        <tr>
+            <td id="dateAndMonth"></td>
+        </tr>
+        <tr>
+            <td id="year"></td>
+        </tr>
+    </table>
+
+    <script>
+      function getTime(){
+        const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+        const today = new Date();
+        const dayOfWeek = daysOfWeek[today.getDay()];
+        const date = today.getDate();
+        const month = months[today.getMonth()];
+        const year = today.getFullYear();
+
+        document.getElementById('dayOfWeek').textContent = dayOfWeek;
+        document.getElementById('dateAndMonth').textContent = `${date} ${month}`;
+        document.getElementById('year').textContent = year;
+
+        
+      }
+    </script>
+    
+
+    <p><h3>Дней до сессии: 
+      <input type="text" id="daysLeft" >
+    </h3></p>
+
+    <script>
+       function calculateDaysLeft() {
+          const sessionDate = new Date('2024-06-10');
+          const currentDate = new Date();
+          const daysLeft = Math.ceil((sessionDate - currentDate) / (1000 * 60 * 60 * 24));
+
+          document.getElementById('daysLeft').value = daysLeft;
+      }
+      calculateDaysLeft();
+    </script>
+    
+
+    <h3>Рассчет количества дней после выбранной даты</h3>
+    <input type="date" id="dateInput">
+    <button onclick="calculateDays()">Рассчитать дни</button>
+    <p id="daysPassed"></p>
+
+    <script>
+
+
+    function calculateDays() {
+        const dateInput = document.getElementById('dateInput').value;
+        const inputDate = new Date(dateInput);
+        const currentDate = new Date();
+        const timeDifference = currentDate - inputDate;
+        const daysPassed = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+        if (daysPassed > 365) {
+            document.getElementById('daysPassed').innerText = `Дней прошло после выбранной даты: ${daysPassed}`;
+        } else {
+            document.getElementById('daysPassed').innerText = 'Выбранная дата должна быть такая, что количество дней превышает 365';
+        }
+    }
+    </script>
+
+
+    <h3>Дана числовая последовательность (-1)^n * (n - 1)^3</h3>
+    <h4>Найти сумму заданного количества членов числовой
+      последовательности, начиная с указанного</h4>
+    
+    
+      <input type="button" value="Введите значения" onclick="getVariable()">
+
+    <div>
+        <label for="startNumber">Стартовый номер члена прогресси:</label>
+        <input type="text" id="startNumber" readonly>
+    </div>
+
+    <div>
+      <label for="numSum">Количество элементов прогрессии</label>
+      <input type="text" id="numSum" readonly>
+    </div>
+   
+    <button onclick="calculateSum()">Высчитать сумму</button>
+    <p>Высчитанная сумма: <span id="sumResult"></span></p>
+
+    <script>
+      function calculateSum() {
+        let startNumber = document.getElementById('startNumber').value;
+        let numSum = document.getElementById('numSum').value;
+
+        if (!isNaN(startNumber) && !isNaN(numSum) && startNumber >= 0 && numSum >= 0){
+
+          let sum = 0;
+
+          for (let i = startNumber; i < startNumber + numSum; i++) {
+              sum += (-1)**i * (i - 1)**3
+          }
+
+          document.getElementById('sumResult').textContent = sum;
+        } else {
+          document.getElementById('sumResult').textContent = "Invalid values";
+        }
+      }
+     
+    function getVariable() {
+      let userInput = prompt("Введите стартовый номер члена прогресси и количество элементов прогрессии через пробел");
+      displayVariable(userInput);
+      
+    }
+    
+    function displayVariable(variable) {
+      let vars = variable.split(' ');
+      document.getElementById("startNumber").value = vars[0];
+      document.getElementById("numSum").value = vars[1];
+    }
+    </script>
+</body>
+</html>
