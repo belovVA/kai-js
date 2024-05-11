@@ -33,7 +33,7 @@ function loadRanks() {
     } else {
         // Если масть не выбрана, показать сообщение
         const defaultOption = document.createElement('option');
-        defaultOption.textContent = 'Select a suit first';
+        defaultOption.textContent = 'Сначала выберите масть';
         ranksDropdown.appendChild(defaultOption);
 
         // Сделать второй список недоступным
@@ -69,20 +69,13 @@ function addCard() {
 
     // Очистка выбора в выпадающих списках
     document.getElementById('suits').value = '';
-    document.getElementById('ranks').innerHTML = '<option value="">Select a suit first</option>';
+    document.getElementById('ranks').innerHTML = '<option value="">Выберите сначала масть</option>';
     document.getElementById('ranks').disabled = true;
 
     // Удаление выбранного номинала из массива значений словаря
     const index = cardValuesBySuit[selectedSuit].indexOf(selectedRank);
     if (index !== -1) {
         cardValuesBySuit[selectedSuit].splice(index, 1);
-    }
-
-    // Если массив номиналов для выбранной масти пустой, отключить выбор этой масти
-    if (cardValuesBySuit[selectedSuit].length === 0) {
-        const suitDropdown = document.getElementById('suits');
-        suitDropdown.remove(suitDropdown.selectedIndex);
-        alert(`No more cards available for ${selectedSuit}!`);
     }
 
     // Проверка количества добавленных карт и блокировка кнопки при достижении 5 карт
@@ -142,10 +135,10 @@ function resetCards() {
   // Очистка сообщения о Каре
   const messageContainer = document.getElementById('messageContainer');
   messageContainer.innerHTML = ''; // Очищаем содержимое сообщения о Каре
-  
+
   // Сброс выбора масти и ранга
   document.getElementById('suits').value = '';
-  document.getElementById('ranks').innerHTML = '<option value="">Select a suit first</option>';
+  document.getElementById('ranks').innerHTML = '<option value="">Выберите сначала масть</option>';
   document.getElementById('ranks').disabled = true;
 
   // Разблокировка кнопки добавления карт и выбора карт из списка

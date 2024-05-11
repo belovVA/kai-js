@@ -103,22 +103,22 @@ button:disabled {
   <div id="poker-container">
     <h3>Покер</h3>
     <div class="controls">
-        <label for="suits">Select Suit:</label>
+        <label for="suits">Масть:</label>
         <select id="suits" onchange="loadRanks()">
-            <option value="">Select a suit</option>
+            <option value="">Выберите масть</option>
             <option value="heart">heart</option>
             <option value="diamond">diamond</option>
             <option value="club">club</option>
             <option value="spade">spade</option>
         </select>
 
-        <label for="ranks">Select Rank:</label>
+        <label for="ranks">Номинал:</label>
         <select id="ranks" disabled>
-            <option value="">Select a suit first</option>
+            <option value="">Выберите сначала масть</option>
         </select>
 
         <button id = "addCardButton" onclick="addCard()">Add Card</button>
-        <button onclick="resetCards()">Reset Cards</button>
+        <button onclick="resetCards()">Сброс набора</button>
         <div id="messageContainer"></div>
 
     </div>
