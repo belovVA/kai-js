@@ -38,97 +38,107 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Graph</title>
-    <style>
-        body {
-            display: flex;
-            align-items: flex-start; /* Выравнивание по верхнему краю */
-            justify-content: space-between; /* Распределение пространства между элементами */
-            padding: 20px; /* Отступы для контейнера body */
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Graph</title>
+  <style>
+    body {
+      display: flex;
+      align-items: flex-start;
+      /* Выравнивание по верхнему краю */
+      justify-content: space-between;
+      /* Распределение пространства между элементами */
+      padding: 20px;
+      /* Отступы для контейнера body */
+    }
 
-        #graph-container {
-            flex: 1; /* Растягиваемый контейнер для графика и кнопок */
-            margin-right: 20px; /* Отступ справа между столбцами */
-        }
+    #graph-container {
+      flex: 1;
+      /* Растягиваемый контейнер для графика и кнопок */
+      margin-right: 20px;
+      /* Отступ справа между столбцами */
+    }
 
-        #poker-container {
-            width: 50%; /* Фиксированная ширина для контейнера с заголовком "Покер" */
-           
-        }
+    #poker-container {
+      width: 50%;
+      /* Фиксированная ширина для контейнера с заголовком "Покер" */
 
-        canvas {
-            border: 1px solid black;
-        }
-        button {
-            margin: 5px;
-        }
-        .card {
-    display: inline-block;
-    margin-right: 10px;
-}
-.container {
-    text-align: center;
-}
+    }
 
-.controls {
-    margin-bottom: 20px;
-}
+    canvas {
+      border: 1px solid black;
+    }
 
-button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-}
-    </style>
+    button {
+      margin: 5px;
+    }
+
+    .card {
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    .controls {
+      margin-bottom: 20px;
+    }
+
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+  </style>
 </head>
+
 <body>
   <div id="graph-container">
     <h2>Выполнил ст.гр 4310 Белов В.А.</h2>
     <h3>График</h3>
     <canvas id="graphCanvas" width="500" height="500"></canvas>
     <div>
-        <button class="scale-button" data-scale="0.75">Уменьшить масштаб</button>
-        <button class="scale-button" data-scale="1.25">Увеличить масштаб</button>
-        <br>
-        <button class="translate-button" data-direction="left" data-amount="1">Сдвинуть влево</button>
-        <button class="translate-button" data-direction="right" data-amount="1">Сдвинуть вправо</button>
-        <br>
-        <button class="translate-button" data-direction="up" data-amount="1">Сдвинуть вверх</button>
-        <button class="translate-button" data-direction="down" data-amount="1">Сдвинуть вниз</button>
+      <button class="scale-button" data-scale="0.75">Уменьшить масштаб</button>
+      <button class="scale-button" data-scale="1.25">Увеличить масштаб</button>
+      <br>
+      <button class="translate-button" data-direction="left" data-amount="1">Сдвинуть влево</button>
+      <button class="translate-button" data-direction="right" data-amount="1">Сдвинуть вправо</button>
+      <br>
+      <button class="translate-button" data-direction="up" data-amount="1">Сдвинуть вверх</button>
+      <button class="translate-button" data-direction="down" data-amount="1">Сдвинуть вниз</button>
     </div>
   </div>
   <div id="poker-container">
     <h3>Покер</h3>
     <div class="controls">
-        <label for="suits">Масть:</label>
-        <select id="suits" onchange="loadRanks()">
-            <option value="">Выберите масть</option>
-            <option value="heart">heart</option>
-            <option value="diamond">diamond</option>
-            <option value="club">club</option>
-            <option value="spade">spade</option>
-        </select>
+      <label for="suits">Масть:</label>
+      <select id="suits" onchange="loadRanks()">
+        <option value="">Выберите масть</option>
+        <option value="heart">heart</option>
+        <option value="diamond">diamond</option>
+        <option value="club">club</option>
+        <option value="spade">spade</option>
+      </select>
 
-        <label for="ranks">Номинал:</label>
-        <select id="ranks" disabled>
-            <option value="">Выберите сначала масть</option>
-        </select>
+      <label for="ranks">Номинал:</label>
+      <select id="ranks" disabled>
+        <option value="">Выберите сначала масть</option>
+      </select>
 
-        <button id = "addCardButton" onclick="addCard()">Add Card</button>
-        <button onclick="resetCards()">Сброс набора</button>
-        <div id="messageContainer"></div>
+      <button id="addCardButton" onclick="addCard()">Add Card</button>
+      <button onclick="resetCards()">Сброс набора</button>
+      <div id="messageContainer"></div>
 
     </div>
     <div class="card-container" id="cardContainer"></div>
-</div>
+  </div>
 
   <script src="graph.js"></script>
   <script src="pocker.js"></script>
 
 </body>
+
 </html>
-
-

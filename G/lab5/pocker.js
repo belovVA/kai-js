@@ -53,7 +53,7 @@ function addCard() {
   const selectedRank = document.getElementById('ranks').value;
 
   if (!selectedSuit || !selectedRank) {
-    alert('Please select both suit and rank!');
+    alert('Выбери номинал и масть карты ');
     return;
   }
 
