@@ -13,7 +13,8 @@
 <body>
 
   <div class="tabs">
-    <button class="tablinks" onclick="openTab(event, 'add')">Добавить</button>
+    <button class="tablinks" onclick="openTab(event, 'borrow')">Взять книгу</button>
+    <button class="tablinks" onclick="openTab(event, 'add')">Добавить Книгу</button>
     <button class="tablinks" onclick="openTab(event, 'newBooks')">Новые</button>
     <button class="tablinks" onclick="openTab(event, 'oldBooks')">Старые</button>
     <button class="tablinks" onclick="openTab(event, 'byAuthor')">Группировка по Авторам</button>
@@ -38,27 +39,45 @@
 
   <div id="newBooks" class="tabcontent">
     <h2>Новые книги</h2>
+    <br>
     <div id="newBooksContainer"></div>
   </div>
 
   <div id="oldBooks" class="tabcontent">
     <h2>Старые книги</h2>
+    <br>
     <div id="oldBooksContainer"></div>
   </div>
 
   <div id="byAuthor" class="tabcontent">
     <h2>Группировка по Авторам</h2>
+    <br>
     <div id="booksByAuthor"></div>
   </div>
 
   <div id="byPublisher" class="tabcontent">
+    <br>
     <h2>Группировка по Издательству</h2>
     <div id="booksByPublisher"></div>
   </div>
 
   <div id="byYear" class="tabcontent">
     <h2>Группировка по Годам издания</h2>
+    <br>
     <div id="booksByYear"></div>
+  </div>
+
+  <div id="borrow" class="tabcontent">
+    <h2>Взять книгу</h2>
+    <form>
+      <label for="ownerName">ФИО владельца:</label>
+      <input type="text" id="ownerName" name="ownerName" required><br><br>
+      <label for="bookSelect">Выберите книгу:</label>
+      <select id="bookSelect" name="bookSelect"></select><br><br>
+      <label for="returnDate">Дата возврата:</label>
+      <input type="text" id="returnDate" name="returnDate"><br><br>
+      <button type="button" onclick="borrowBook()">Взять книгу</button>
+    </form>
   </div>
 
 </body>

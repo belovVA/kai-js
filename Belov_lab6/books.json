@@ -3,42 +3,56 @@
     "title": "Евгений Онегин",
     "publisher": "Эксмо",
     "year": "1833",
-    "authors": ["Александр Пушкин"]
+    "authors": ["Александр Пушкин"],
+    "ownerName": "",
+    "returnDate": ""
   },
   {
     "title": "Мертвые души",
     "publisher": "Азбука",
     "year": "1842",
-    "authors": ["Николай Гоголь"]
+    "authors": ["Николай Гоголь"],
+    "ownerName": "",
+    "returnDate": ""
   },
   {
     "title": "Борис Годунов",
     "publisher": "Эксмо",
     "year": "1831",
-    "authors": ["Александр Пушкин"]
+    "authors": ["Александр Пушкин"],
+    "ownerName": "",
+    "returnDate": ""
   },
   {
     "title": "Ревизор",
     "publisher": "Азбука-Аттикус",
     "year": "1836",
-    "authors": ["Николай Гоголь"]
+    "authors": ["Николай Гоголь"],
+    "ownerName": "",
+    "returnDate": ""
   },
   {
     "title": "Герой нашего времени",
     "publisher": "Эксмо",
     "year": "1840",
-    "authors": ["Михаил Лермонтов"]
+    "authors": ["Михаил Лермонтов"],
+    "ownerName": "",
+    "returnDate": ""
   },
   {
     "title": "Капитанская дочка",
     "publisher": "Эксмо",
     "year": "1836",
-    "authors": ["Александр Пушкин"]
+    "authors": ["Александр Пушкин"],
+    "ownerName": "",
+    "returnDate": ""
   },
   {
     "title": "Тестовая книга для проверки соавторства",
     "publisher": "Азбука",
     "year": "1836",
-    "authors": ["Николай Гоголь", "Александр Пушкин"]
+    "authors": ["Николай Гоголь", "Александр Пушкин"],
+    "ownerName": "",
+    "returnDate": ""
   }
 ]

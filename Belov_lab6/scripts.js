@@ -13,7 +13,8 @@ function addBook() {
     publisher: publisher,
     year: year,
     authors: authors,
-    dateAdded: new Date()  // Добавляем дату добавления книги
+    ownerName: '',  // ФИО владельца
+    returnDate: ''  // Добавляем дату добавления книги
   };
 
   library.push(book);
@@ -22,7 +23,7 @@ function addBook() {
   // Display new book in respective tabs
   // displayBooks();
   // loadOldBooks();
-  loadNewBooks();
+  displayOldBooks();
   displayBooksByAuthor();
   displayBooksByPublisher();
   displayBooksByYear();
@@ -36,12 +37,14 @@ function loadOldBooks() {
     oldBooks.forEach(book => {
       library.push(book);
     });
-
-    // Обновляем отображение после загрузки старых книг
-    oldBooks.forEach(book => {
-      const bookHTML = getBookHTML(book);
-      $('#oldBooks').append(bookHTML);
-    });
+    // displayOldBooks();
+  });
+}
+function displayOldBooks() {
+  // Обновляем отображение после загрузки старых книг
+  oldBooks.forEach(book => {
+    const bookHTML = getBookHTML(book);
+    $('#oldBooks').append(bookHTML);
   });
 }
 
@@ -58,13 +61,19 @@ function loadNewBooks() {
 
 
 function getBookHTML(book) {
-  return `<div class="book">
-        <p><strong>Название:</strong> ${book.title}</p>
-        <p><strong>Издательство:</strong> ${book.publisher}</p>
-        <p><strong>Год издания:</strong> ${book.year}</p>
-        <p><strong>Авторы:</strong> ${book.authors.join(', ')}</p>
-    </div>`;
+  let infoHTML = `<p><strong>Название:</strong> ${book.title}</p>
+                  <p><strong>Издательство:</strong> ${book.publisher}</p>
+                  <p><strong>Год издания:</strong> ${book.year}</p>
+                  <p><strong>Авторы:</strong> ${book.authors.join(', ')}</p>`;
+
+  if (book.returnDate !== '') {
+    infoHTML += `<p><strong>ФИО владельца:</strong> ${book.ownerName}</p>
+                 <p><strong>Дата возврата:</strong> ${book.returnDate}</p>`;
+  }
+
+  return `<div class="book">${infoHTML}</div>`;
 }
+
 
 function displayBooksByAuthor() {
   $('#booksByAuthor').empty();
@@ -150,9 +159,12 @@ function openTab(evt, tabName) {
   $(evt.target)
       .addClass('active');  // Add 'active' class to the clicked tab link
   if (tabName == 'oldBooks') {
-    loadOldBooks;
+    displayOldBooks();
+  } else if (tabName === 'borrow') {
+    loadAvailableBooks();
   }
-  if (tabName === 'byAuthor') {
+
+  else if (tabName === 'byAuthor') {
     displayBooksByAuthor();
   } else if (tabName === 'byPublisher') {
     displayBooksByPublisher();
@@ -172,3 +184,61 @@ $(document).ready(function() {
   $('#add').show();
   $('.tablinks:first').addClass('active');
 });
+
+function loadAvailableBooks() {
+  $('#bookSelect').empty();
+
+  library.forEach(book => {
+    if (book.returnDate === '') {
+      const option = `<option value="${book.title}">${book.title}</option>`;
+      $('#bookSelect').append(option);
+    }
+  });
+}
+
+function borrowBook() {
+  const ownerName = $('#ownerName').val();
+  const selectedBookTitle = $('#bookSelect').val();
+  const currentDate = $('#returnDate').val()
+
+  const selectedBook = library.find(
+      book => book.title === selectedBookTitle && book.returnDate === '');
+  if (ownerName !== '' && currentDate != '') {
+    if (selectedBook) {
+      selectedBook.ownerName = ownerName;
+
+
+      selectedBook.returnDate = currentDate;
+
+      // Обновляем oldBooks, если книга присутствует там
+      const oldBookIndex =
+          oldBooks.findIndex(book => book.title === selectedBook.title);
+      if (oldBookIndex !== -1) {
+        // Обновляем информацию о книге в oldBooks по индексу
+        oldBooks[oldBookIndex].ownerName = ownerName;
+        oldBooks[oldBookIndex].returnDate = formattedDate;
+      }
+      // alert();
+      // Перерисовываем отображение книг
+      // loadOldBooks();
+      displayOldBooks();
+      loadNewBooks();
+      displayBooksByAuthor();
+      displayBooksByPublisher();
+      displayBooksByYear();
+
+      // Очищаем поля формы
+      $('#ownerName').val('');
+      $('#bookSelect').val('');  // Сбрасываем выбор книги
+      $('#returnDate').val('');
+
+
+      // Переключаемся на вкладку "Новые книги"
+      openTab(event, 'borrow');
+    } else {
+      alert('Выбранная книга недоступна для взятия.');
+    }
+  } else {
+    alert('Заполните ФИО и дату');
+  }
+}
