@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Библиотека</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="scripts.js"></script>
+</head>
+
+<body>
+
+  <div class="tabs">
+    <button class="tablinks" onclick="openTab(event, 'add')">Добавить</button>
+    <button class="tablinks" onclick="openTab(event, 'newBooks')">Новые</button>
+    <button class="tablinks" onclick="openTab(event, 'oldBooks')">Старые</button>
+    <button class="tablinks" onclick="openTab(event, 'byAuthor')">Группировка по Авторам</button>
+    <button class="tablinks" onclick="openTab(event, 'byPublisher')">Группировка по Издательству</button>
+    <button class="tablinks" onclick="openTab(event, 'byYear')">Группировка по Годам издания</button>
+  </div>
+
+  <div id="add" class="tabcontent">
+    <h2>Добавить новую книгу</h2>
+    <form>
+      <label for="title">Название:</label>
+      <input type="text" id="title" name="title" required><br><br>
+      <label for="publisher">Издательство:</label>
+      <input type="text" id="publisher" name="publisher" required><br><br>
+      <label for="year">Год издания:</label>
+      <input type="text" id="year" name="year" required><br><br>
+      <label for="authors">Авторы (через запятую):</label>
+      <input type="text" id="authors" name="authors" required><br><br>
+      <button type="button" onclick="addBook()">Добавить книгу</button>
+    </form>
+  </div>
+
+  <div id="newBooks" class="tabcontent">
+    <h2>Новые книги</h2>
+    <div id="newBooksContainer"></div>
+  </div>
+
+  <div id="oldBooks" class="tabcontent">
+    <h2>Старые книги</h2>
+    <div id="oldBooksContainer"></div>
+  </div>
+
+  <div id="byAuthor" class="tabcontent">
+    <h2>Группировка по Авторам</h2>
+    <div id="booksByAuthor"></div>
+  </div>
+
+  <div id="byPublisher" class="tabcontent">
+    <h2>Группировка по Издательству</h2>
+    <div id="booksByPublisher"></div>
+  </div>
+
+  <div id="byYear" class="tabcontent">
+    <h2>Группировка по Годам издания</h2>
+    <div id="booksByYear"></div>
+  </div>
+
+</body>
+
+</html>
