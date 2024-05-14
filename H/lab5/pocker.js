@@ -93,26 +93,37 @@ function addCard() {
 }
 
 function checkOnStreetFlash() {
-  let suits = selectedCards.map(card => card[0]);
+  let ranks = [];
+  for (let i = 0; i < selectedCards.length; i++) {
+    let card = selectedCards[i];
+    ranks.push(card[1]);
+  }
 
 
-  // Проверяем, содержит ли массив только одну масть
-  let isSameSuit = suits.every(suit => suit === suits[0]);
 
-  if (isSameSuit) {
+  // Проверяем, содержит ли рука все номиналы разные, в противном случае стрита
+  // не получится
+  let isAllUnique = areAllUnique(ranks);
+
+  if (isAllUnique) {
     // Получаем все номиналы руки и их индексы в исходном массиве номиналов
-    let ranks = selectedCards.map(card => card[1]);
-    let rankIndexes = ranks.map(
-        rank =>
-            cardRanks.indexOf(rank));  // Находим индексы номиналов в cardRanks
+
+    // Находим индексы номиналов в cardRanks
+    let rankIndexes = [];
+    for (let i = 0; i < ranks.length; i++) {
+      let rank = ranks[i];
+      let index = cardRanks.indexOf(rank);
+      rankIndexes.push(index);
+    }
+
 
     // Получаем max и min значения
     let maxIndex = Math.max(...rankIndexes);
     let minIndex = Math.min(...rankIndexes);
 
-    let flag = 0;  //  Флаг флеш стрита
+    let flag = 0;  //  Флаг  стрита
 
-    // Случае для всех флеш стритов кроме А,2,3,4,5
+    // Случае для всех  стритов кроме А,2,3,4,5
     if (maxIndex - minIndex == 4) {
       flag = 1;
       // Разбор оставшегося случая
@@ -143,14 +154,22 @@ function checkOnStreetFlash() {
     }
     if (flag) {
       // Преобразуем отсортированный массив ranks в строку с помощью метода join
-      let ranksString = ranks.join(', ');
-      ranks.sort((a, b) => {
-        return cardRanks.indexOf(a) - cardRanks.indexOf(b);
+      // Создаем объект для хранения индексов номиналов
+      const rankIndexMap = {};
+      cardRanks.forEach((rank, index) => {
+        rankIndexMap[rank] = index;
       });
+      // Сортируем массив ranks согласно порядку в cardRanks
+      ranks.sort((a, b) => {
+        return rankIndexMap[a] - rankIndexMap[b];
+      });
+
+      // Преобразуем отсортированный массив ranks в строку с помощью метода join
+      let ranksString = ranks.join(', ');
       const messageElement = document.createElement('p');
 
-      messageElement.textContent = `Вы собрали Стрит Флеш с картами масти: ${
-          suits[0]} номинала ${ranksString}!`;
+      messageElement.textContent =
+          `Вы собрали Стрит с картами  номинала ${ranksString}!`;
 
       const messageContainer = document.getElementById('messageContainer');
       messageContainer.innerHTML = '';  // Очищаем содержимое контейнера
@@ -164,7 +183,7 @@ function checkOnStreetFlash() {
     const messageContainer = document.getElementById('messageContainer');
     messageContainer.appendChild(
         messageElement);  // Добавляем сообщение в контейнер
-    throw new Error('В выбранных картах нет Стрит Флеша. НЕТ ИГРЫ');
+    throw new Error('В выбранных картах нет Стрита. НЕТ ИГРЫ');
   }
 }
 
@@ -219,4 +238,16 @@ function resetCards() {
     // Сделать второй список доступным
     ranksDropdown.disabled = false;
   }
+}
+
+function areAllUnique(array) {
+  for (let i = 0; i < array.length; i++) {
+    for (let j = i + 1; j < array.length; j++) {
+      // console.log(`${array[i]} ${array[j]}`)
+      if (array[i] === array[j]) {
+        return false;  // Если найдены повторяющиеся элементы
+      }
+    }
+  }
+  return true;  // Если все элементы уникальны
 }
