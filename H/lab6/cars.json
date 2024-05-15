@@ -1,0 +1,26 @@
+[
+  {
+      "licensePlate": ["A222AA116RUS"],
+      "parkingSpot": "1A",
+      "parkingDate": "2024-05-10",
+      "ownerName": "Иванов Иван Иванович"
+  },
+  {
+      "licensePlate": ["В777ВВ123RUS"],
+      "parkingSpot": "",
+      "parkingDate": "",
+      "ownerName": "Петров Петр Петрович"
+  },
+  {
+    "licensePlate": ["A111AA116RUS"],
+    "parkingSpot": "3C",
+    "parkingDate": "2024-05-10",
+    "ownerName": "Иванов Иван Иванович"
+},
+{
+  "licensePlate": ["C333CC116RUS", "D444DD116RUS"],
+  "parkingSpot": "4D",
+  "parkingDate": "2024-05-01",
+  "ownerName": "Сидоров Сидр Сидорович"
+}
+]

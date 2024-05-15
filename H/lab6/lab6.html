@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Автостоянка</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="tabs">
+    <button class="tablink" data-tab="add">Добавить</button>
+
+    <button class="tablink" data-tab="newCars">Новые</button>
+    <button class="tablink" data-tab="oldCars">Старые</button>
+
+    <button class="tablink" data-tab="groupByLicense">Группировка по госномеру</button>
+
+    <button class="tablink" data-tab="groupbyDate">Группировка По дате</button>
+    <button class="tablink" data-tab="groupbyOwner">Группировка По ФИО</button>
+
+  </div>
+
+  <div id="add" class="tabcontent">
+    <h2>Добавить автомобиль</h2>
+    <form>
+      Госномер: <input type="text" id="licensePlate"><br>
+      Номер парковочного места: <input type="text" id="parkingSpot"><br>
+      Дата стоянки: <input type="date" id="parkingDate"><br>
+      ФИО владельца: <input type="text" id="ownerName"><br>
+      <button type="button" onclick="addCar()">Добавить</button>
+    </form>
+  </div>
+
+  <div id="oldCars" class="tabcontent">
+    <h2>Старые автомобили</h2>
+    <div id="oldCarsContainer"></div>
+  </div>
+
+  <div id="newCars" class="tabcontent">
+    <h2>Новые автомобили</h2>
+    <div id="newCarsContainer"></div>
+  </div>
+
+  <div id="groupByLicense" class="tabcontent">
+    <h2>Группировка по госномеру</h2>
+    <div id="groupByLicenseContainer"></div>
+  </div>
+
+  <div id="groupbyDate" class="tabcontent">
+    <h2>Группировка по дате стоянки</h2>
+    <div id="groupByDateContainer"></div>
+  </div>
+
+  <div id="groupbyOwner" class="tabcontent">
+    <h2>Группировка по ФИО Владельца</h2>
+    <div id="groupByOwnerContainer"></div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>

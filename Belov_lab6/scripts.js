@@ -19,7 +19,7 @@ function addBook() {
 
   library.push(book);
   newBooks.unshift(book);  // Добавляем книгу в начало списка новых книг
-
+  console.log(`kolvo`, newBooks.length);
   // Display new book in respective tabs
   // displayBooks();
   // loadOldBooks();
@@ -37,25 +37,25 @@ function loadOldBooks() {
     oldBooks.forEach(book => {
       library.push(book);
     });
-    // displayOldBooks();
   });
 }
 function displayOldBooks() {
+  $('#oldBooksContainer').empty();
   // Обновляем отображение после загрузки старых книг
   oldBooks.forEach(book => {
     const bookHTML = getBookHTML(book);
-    $('#oldBooks').append(bookHTML);
+    $('#oldBooksContainer').append(bookHTML);
   });
 }
 
 
 
 function loadNewBooks() {
-  $('#newBooks').empty();  // Очищаем контейнер для новых книг
+  $('#newBooksContainer').empty();  // Очищаем контейнер для новых книг
 
   newBooks.forEach(book => {
     const bookHTML = getBookHTML(book);
-    $('#newBooks').append(bookHTML);  // Выводим все новые книги заново
+    $('#newBooksContainer').append(bookHTML);  // Выводим все новые книги заново
   });
 }
 
@@ -169,6 +169,9 @@ function openTab(evt, tabName) {
   $('#' + tabName).show();     // Show the selected tab
   $(evt.target)
       .addClass('active');  // Add 'active' class to the clicked tab link
+  if (tabName == 'newBooks') {
+    loadNewBooks();
+  }
   if (tabName == 'oldBooks') {
     displayOldBooks();
   } else if (tabName === 'borrow') {

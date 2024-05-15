@@ -54,8 +54,8 @@ body {
 }
 
 /* Стили для отображения списков книг */
-#oldBooks,
-#newBooks,
+#oldBooksContainer,
+#newBooksContainer,
 #booksByAuthor,
 #booksByDate,
 #booksByOwnerName {
@@ -64,9 +64,9 @@ body {
   gap: 20px;
 }
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
 
-  #oldBooks,
+  #oldBooksContainer,
   #newBooks,
   #booksByAuthor,
   #booksByDate,
@@ -79,4 +79,4 @@ body {
   .tablinks {
     padding: 10px;
   }
-}
+} */
