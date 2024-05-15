@@ -18,8 +18,8 @@
     <button class="tablinks" onclick="openTab(event, 'newBooks')">Новые</button>
     <button class="tablinks" onclick="openTab(event, 'oldBooks')">Старые</button>
     <button class="tablinks" onclick="openTab(event, 'byAuthor')">Группировка по Авторам</button>
-    <button class="tablinks" onclick="openTab(event, 'byPublisher')">Группировка по Издательству</button>
-    <button class="tablinks" onclick="openTab(event, 'byYear')">Группировка по Годам издания</button>
+    <button class="tablinks" onclick="openTab(event, 'ByDate')">Группировка по Дате возврата</button>
+    <button class="tablinks" onclick="openTab(event, 'ByOwnerName')">Группировка по ФИО держателя</button>
   </div>
 
   <div id="add" class="tabcontent">
@@ -55,16 +55,16 @@
     <div id="booksByAuthor"></div>
   </div>
 
-  <div id="byPublisher" class="tabcontent">
+  <div id="ByDate" class="tabcontent">
     <br>
-    <h2>Группировка по Издательству</h2>
-    <div id="booksByPublisher"></div>
+    <h2>Группировка по Дате возврата</h2>
+    <div id="booksByDate"></div>
   </div>
 
-  <div id="byYear" class="tabcontent">
-    <h2>Группировка по Годам издания</h2>
+  <div id="ByOwnerName" class="tabcontent">
+    <h2>Группировка по ФИО держателя</h2>
     <br>
-    <div id="booksByYear"></div>
+    <div id="booksByOwnerName"></div>
   </div>
 
   <div id="borrow" class="tabcontent">

@@ -25,8 +25,8 @@ function addBook() {
   // loadOldBooks();
   displayOldBooks();
   displayBooksByAuthor();
-  displayBooksByPublisher();
-  displayBooksByYear();
+  displaybooksByDate();
+  displayBooksByOwnerName();
 }
 
 function loadOldBooks() {
@@ -98,57 +98,68 @@ function displayBooksByAuthor() {
   });
 }
 
-function displayBooksByPublisher() {
-  $('#booksByPublisher').empty();
+function displaybooksByDate() {
+  $('#booksByDate')
+      .empty();  // Очищаем контейнер для группировки по дате возврата
 
-  const publishersMap = new Map();
+  const booksByReturnDate = {};  // Объект для хранения книг по дате возврата
 
+  // Группировка книг по дате возврата
   library.forEach(book => {
-    const publisher = book.publisher;
-    if (!publishersMap.has(publisher)) {
-      publishersMap.set(publisher, []);
-    }
-    publishersMap.get(publisher).push(book);
-  });
+    const returnDate = book.returnDate;
+    const key = returnDate !== '' ? returnDate : 'Свободны';
 
-  publishersMap.forEach((books, publisher) => {
-    const publisherGroupHTML = `<div class="book-group">
-            <h3>${publisher}</h3>
-            <div>${books.map(book => getBookHTML(book)).join('')}</div>
-        </div>`;
-    $('#booksByPublisher').append(publisherGroupHTML);
-  });
-}
-
-function displayBooksByYear() {
-  $('#booksByYear').empty();
-
-  const yearsMap = {};  // Объект для хранения книг по годам
-
-  library.forEach(book => {
-    const year = book.year.toString();  // Преобразуем год в строку для
-                                        // использования в качестве ключа
-
-    if (!yearsMap[year]) {
-      yearsMap[year] =
-          [];  // Создаем новый массив для данного года, если его еще нет
+    if (!booksByReturnDate[key]) {
+      booksByReturnDate[key] = [];
     }
 
-    yearsMap[year].push(book);  // Добавляем книгу в массив для данного года
+    booksByReturnDate[key].push(book);
   });
 
-  // Теперь отображаем книги по годам из объекта yearsMap
-  Object.keys(yearsMap).forEach(year => {
-    const books = yearsMap[year];  // Получаем массив книг для данного года
+  // Отображение книг по группам даты возврата
+  Object.keys(booksByReturnDate).forEach(date => {
+    const books = booksByReturnDate[date];
 
-    const yearGroupHTML = `<div class="book-group">
-          <h3>${year}</h3>
-          <div>${books.map(book => getBookHTML(book)).join('')}</div>
+    const returnDateGroupHTML = `<div class="book-group">
+        <h3>${date}</h3>
+        <div>${books.map(book => getBookHTML(book)).join('')}</div>
       </div>`;
 
-    $('#booksByYear').append(yearGroupHTML);
+    $('#booksByDate').append(returnDateGroupHTML);
   });
 }
+
+function displayBooksByOwnerName() {
+  $('#booksByOwnerName')
+      .empty();  // Очищаем контейнер для группировки по ФИО владельца
+
+  const ownersMap = {};  // Объект для хранения книг по ФИО владельца
+
+  // Группировка книг по ФИО владельца
+  library.forEach(book => {
+    const ownerName = book.ownerName ||
+        'Свободны';  // Если ФИО владельца пусто, используем "Свободны"
+
+    if (!ownersMap[ownerName]) {
+      ownersMap[ownerName] = [];
+    }
+
+    ownersMap[ownerName].push(book);
+  });
+
+  // Отображение книг по группам ФИО владельца
+  Object.keys(ownersMap).forEach(ownerName => {
+    const books = ownersMap[ownerName];
+
+    const ownerNameGroupHTML = `<div class="book-group">
+        <h3>${ownerName}</h3>
+        <div>${books.map(book => getBookHTML(book)).join('')}</div>
+      </div>`;
+
+    $('#booksByOwnerName').append(ownerNameGroupHTML);
+  });
+}
+
 
 
 function openTab(evt, tabName) {
@@ -166,10 +177,10 @@ function openTab(evt, tabName) {
 
   else if (tabName === 'byAuthor') {
     displayBooksByAuthor();
-  } else if (tabName === 'byPublisher') {
-    displayBooksByPublisher();
-  } else if (tabName === 'byYear') {
-    displayBooksByYear();
+  } else if (tabName === 'ByDate') {
+    displaybooksByDate();
+  } else if (tabName === 'ByOwnerName') {
+    displayBooksByOwnerName();
   }
 }
 
@@ -224,8 +235,8 @@ function borrowBook() {
       displayOldBooks();
       loadNewBooks();
       displayBooksByAuthor();
-      displayBooksByPublisher();
-      displayBooksByYear();
+      displaybooksByDate();
+      displayBooksByOwnerName();
 
       // Очищаем поля формы
       $('#ownerName').val('');
