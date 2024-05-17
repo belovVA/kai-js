@@ -1,5 +1,5 @@
 let vouchers = [];
-let oldVouchers = [];
+// let oldVouchers = [];
 let newVouchers = [];
 
 function addVoucher() {
@@ -29,8 +29,8 @@ function addVoucher() {
     hotelName: hotelName
   };
 
-  vouchers.push(voucher);
-  newVouchers.unshift(voucher);
+  vouchers.unshift(voucher);
+  // newVouchers.unshift(voucher);
 
   // Очищаем поля формы после успешного добавления
   $('#country, #departureDate, #duration, #stars, #hotelName').val('');
@@ -38,11 +38,18 @@ function addVoucher() {
   console.log('Новая путевка добавлена:', voucher);
 }
 
-function displayVouchers(containerId, vouchersList) {
+function displayVouchers(containerId, flag) {
+  let newtravel;
+  if (flag === 1){
+    newtravel = [...vouchers].reverse();
+  } else{
+    newtravel = [...vouchers];
+  }
+
   const container = $(`#${containerId}`);
   container.empty();  // Очищаем контейнер для путевок
 
-  vouchersList.forEach(voucher => {
+  newtravel.forEach(voucher => {
     const voucherHTML = getVoucherHTML(voucher);
     container.append(voucherHTML);  // Выводим каждую путевку
   });
@@ -118,7 +125,7 @@ $(document).ready(function() {
   // Загружаем старые путевки (пример загрузки из JSON-файла)
   $.getJSON('vouchers.json', function(data) {
     oldVouchers = data;
-    console.log('Количество старых путевок:', oldVouchers.length);
+    // console.log('Количество старых путевок:', oldVouchers.length);
     oldVouchers.forEach(voucher => {
       vouchers.push(voucher);
     });
@@ -131,9 +138,9 @@ $('.tablink').click(function() {
   $('#' + tabName).show();  // Отображаем выбранную вкладку
 
   if (tabName === 'newVouchers') {
-    displayVouchers('newVouchersContainer', newVouchers);
+    displayVouchers('newVouchersContainer', 0);
   } else if (tabName === 'oldVouchers') {
-    displayVouchers('oldVouchersContainer', oldVouchers);
+    displayVouchers('oldVouchersContainer', 1);
   } else if (tabName === 'groupByCountry') {
     groupByCountry();
   } else if (tabName === 'groupByDate') {

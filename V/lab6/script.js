@@ -1,6 +1,6 @@
 let parking = [];
 let oldCars = [];
-let newCars = [];
+// let newCars = [];
 
 
 function addCar() {
@@ -29,8 +29,8 @@ function addCar() {
     parkingDate: parkingDate,
     ownerName: ownerName
   };
-  parking.push(car);
-  newCars.unshift(car);
+  parking.unshift(car);
+  // newCars.unshift(car);
 
   // Очищаем поля формы после успешного добавления
   $('#licensePlate, #parkingSpot, #parkingDate, #ownerName').val('');
@@ -71,7 +71,10 @@ function loadOldCars() {
 // Отображение старых автомобилей на вкладке "Старые"
 function displayOldCars() {
   $('#oldCarsContainer').empty();
-  oldCars.forEach(car => {
+  const reversedParking = [...parking].reverse();
+
+  // Обновляем отображение после загрузки старых книг
+  reversedParking.forEach(car => {
     const carHTML = getCarHTML(car);
     $('#oldCarsContainer').append(carHTML);
   });
@@ -80,7 +83,7 @@ function displayOldCars() {
 function displayNewCars() {
   $('#newCarsContainer').empty();  // Очищаем контейнер для новых книг
 
-  newCars.forEach(car => {
+  parking.forEach(car => {
     const carHTML = getCarHTML(car);
     $('#newCarsContainer').append(carHTML);  // Выводим все новые книги заново
   });

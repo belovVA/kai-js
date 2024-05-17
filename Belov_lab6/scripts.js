@@ -1,5 +1,5 @@
 let library = [];
-let newBooks = [];
+// let newBooks = [];
 let oldBooks = [];
 
 function addBook() {
@@ -17,9 +17,9 @@ function addBook() {
     returnDate: ''  // Добавляем дату добавления книги
   };
 
-  library.push(book);
-  newBooks.unshift(book);  // Добавляем книгу в начало списка новых книг
-  console.log(`kolvo`, newBooks.length);
+  library.unshift(book);
+  // newBooks.unshift(book);  // Добавляем книгу в начало списка новых книг
+  // console.log(`kolvo`, newBooks.length);
   // Display new book in respective tabs
   // displayBooks();
   // loadOldBooks();
@@ -42,7 +42,10 @@ function loadOldBooks() {
 function displayOldBooks() {
   $('#oldBooksContainer').empty();
   // Обновляем отображение после загрузки старых книг
-  oldBooks.forEach(book => {
+  const reversedLibrary = [...library].reverse();
+
+  // Обновляем отображение после загрузки старых книг
+  reversedLibrary.forEach(book => {
     const bookHTML = getBookHTML(book);
     $('#oldBooksContainer').append(bookHTML);
   });
@@ -53,7 +56,7 @@ function displayOldBooks() {
 function loadNewBooks() {
   $('#newBooksContainer').empty();  // Очищаем контейнер для новых книг
 
-  newBooks.forEach(book => {
+  library.forEach(book => {
     const bookHTML = getBookHTML(book);
     $('#newBooksContainer').append(bookHTML);  // Выводим все новые книги заново
   });
