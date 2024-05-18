@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Регистрация писем</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="tabs">
+    <button class="tablink" data-tab="add">Добавить</button>
+    <button class="tablink" data-tab="newMails">Новые</button>
+    <button class="tablink" data-tab="oldMails">Старые</button>
+    <button class="tablink" data-tab="groupByRecipient">Группировка по адресатам</button>
+    <button class="tablink" data-tab="groupByDate">Группировка по дате получения</button>
+    <button class="tablink" data-tab="groupBySender">Группировка по организации отправителя</button>
+  </div>
+
+  <div id="add" class="tabcontent">
+    <h2>Добавить письмо</h2>
+    <form>
+      Дата получения: <input type="date" id="receiveDate"><br>
+      Организация отправитель: <input type="text" id="sender"><br>
+      Тип: <input type="text" id="type"><br>
+      Краткое содержание: <input type="text" id="summary"><br>
+      Адресаты (через запятую): <input type="text" id="recipients"><br>
+      <button type="button" onclick="addMail()">Добавить</button>
+    </form>
+  </div>
+
+  <div id="newMails" class="tabcontent">
+    <h2>Новые письма</h2>
+    <div id="newMailsContainer"></div>
+  </div>
+
+  <div id="oldMails" class="tabcontent">
+    <h2>Старые письма</h2>
+    <div id="oldMailsContainer"></div>
+  </div>
+
+  <div id="groupByRecipient" class="tabcontent">
+    <h2>Группировка по адресатам</h2>
+    <div id="groupByRecipientContainer"></div>
+  </div>
+
+  <div id="groupByDate" class="tabcontent">
+    <h2>Группировка по дате получения</h2>
+    <div id="groupByDateContainer"></div>
+  </div>
+
+  <div id="groupBySender" class="tabcontent">
+    <h2>Группировка по организации отправителя</h2>
+    <div id="groupBySenderContainer"></div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="emails.js"></script>
+</body>
+
+</html>
