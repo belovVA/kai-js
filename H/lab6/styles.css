@@ -1,0 +1,64 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  padding: 20px;
+}
+
+.tabs {
+  overflow: hidden;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+}
+
+.tablinks {
+  float: left;
+  cursor: pointer;
+  padding: 10px 20px;
+  transition: background-color 0.3s;
+}
+
+.tablinks:hover {
+  background-color: #ddd;
+}
+
+.tabcontent {
+  display: none;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+}
+
+.tabcontent h2 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.book {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.book p {
+  margin: 5px 0;
+}
+
+.book-group {
+  margin-bottom: 20px;
+}
+
+.book-group h3 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+#oldBooksContainer,
+#newBooksContainer,
+#booksByPublisher,
+#booksByDate,
+#booksByOwnerName {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
