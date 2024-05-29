@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Библиотека</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="scripts.js"></script>
+</head>
+
+<body>
+
+  <div class="tabs">
+    <button class="tablinks" onclick="openTab(event, 'borrow')">Взять книгу</button>
+    <button class="tablinks" onclick="openTab(event, 'add')">Добавить Книгу</button>
+    <button class="tablinks" onclick="openTab(event, 'newBooks')">Новые</button>
+    <button class="tablinks" onclick="openTab(event, 'oldBooks')">Старые</button>
+    <button class="tablinks" onclick="openTab(event, 'byAuthor')">Группировка по Авторам</button>
+    <button class="tablinks" onclick="openTab(event, 'ByDate')">Группировка по Дате возврата</button>
+    <button class="tablinks" onclick="openTab(event, 'ByOwnerName')">Группировка по ФИО держателя</button>
+  </div>
+
+  <div id="add" class="tabcontent">
+    <h2>Добавить новую книгу</h2>
+    <form>
+      <label for="title">Название:</label>
+      <input type="text" id="title" name="title" required><br><br>
+      <label for="publisher">Издательство:</label>
+      <input type="text" id="publisher" name="publisher" required><br><br>
+      <label for="year">Год издания:</label>
+      <input type="text" id="year" name="year" required><br><br>
+      <label for="authors">Авторы (через запятую):</label>
+      <input type="text" id="authors" name="authors" required><br><br>
+      <button type="button" onclick="addBook()">Добавить книгу</button>
+    </form>
+  </div>
+
+  <div id="newBooks" class="tabcontent">
+    <h2>Новые книги</h2>
+    <br>
+    <div id="newBooksContainer"></div>
+  </div>
+
+  <div id="oldBooks" class="tabcontent">
+    <h2>Старые книги</h2>
+    <br>
+    <div id="oldBooksContainer"></div>
+  </div>
+
+  <div id="byAuthor" class="tabcontent">
+    <h2>Группировка по Авторам</h2>
+    <br>
+    <div id="booksByAuthor"></div>
+  </div>
+
+  <div id="ByDate" class="tabcontent">
+    <br>
+    <h2>Группировка по Дате возврата</h2>
+    <div id="booksByDate"></div>
+  </div>
+
+  <div id="ByOwnerName" class="tabcontent">
+    <h2>Группировка по ФИО держателя</h2>
+    <br>
+    <div id="booksByOwnerName"></div>
+  </div>
+
+  <div id="borrow" class="tabcontent">
+    <h2>Взять книгу</h2>
+    <form>
+      <label for="ownerName">ФИО владельца:</label>
+      <input type="text" id="ownerName" name="ownerName" required><br><br>
+      <label for="bookSelect">Выберите книгу:</label>
+      <select id="bookSelect" name="bookSelect"></select><br><br>
+      <label for="returnDate">Дата возврата:</label>
+      <input type="text" id="returnDate" name="returnDate"><br><br>
+      <button type="button" onclick="borrowBook()">Взять книгу</button>
+    </form>
+  </div>
+
+</body>
+
+</html>

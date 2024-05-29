@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Рисуем координатную сетку
     ctx.beginPath();
-    ctx.strokeStyle = 'rgba(150, 150, 150, 0.5)';
+    ctx.strokeStyle = 'rgba(150, 150, 150, 1)';
     ctx.lineWidth = 0.2;
     for (let y = centerY % step; y < canvas.height; y += step) {
       ctx.moveTo(0, y);
@@ -125,10 +125,10 @@ document.addEventListener('DOMContentLoaded', function() {
       scale = k;
     }
     if (!isNaN(x)) {
-      translateX = -1 * x;
+      translateX = -1 * x * 25;
     }
     if (!isNaN(y)) {
-      translateY = -1 * y;
+      translateY = -1 * y*25;
     }
 
     drawGraph();
