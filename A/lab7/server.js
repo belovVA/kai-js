@@ -1,4 +1,6 @@
 const express = require("express");
+const fs = require("fs");
+const path = require("path");
 const app = express();
 app.use(express.json());
 app.use(express.static("public"));
@@ -15,6 +17,26 @@ function findEmailIndexById(id){
   app.get("/api/emails", function(_, res){
     res.send(emails);
   });
+
+  // Загрузка писем из mails.json при запуске сервера
+function loadOldMails() {
+  const filePath = path.join(__dirname, 'public', 'mails.json');
+  fs.readFile(filePath, 'utf8', (err, data) => {
+    if (err) {
+      console.error('Error reading mails.json:', err);
+      return;
+    }
+    const oldMails = JSON.parse(data);
+    oldMails.forEach(mail => {
+      mail.id = id++;  // Присваиваем уникальный идентификатор
+      emails.push(mail);
+    });
+    console.log('Old mails loaded successfully');
+  });
+}
+
+// Вызов функции загрузки старых писем при запуске сервера
+loadOldMails();
 
     // получение одного пользователя по id
   app.get("/api/emails/:id", function(req, res){
@@ -45,6 +67,7 @@ function findEmailIndexById(id){
     // добавляем пользователя в массив
     emails.push(email);
     res.send(email);
+    console.log(email);
   });
 
 app.put("/api/emails", function(req, res){
@@ -55,7 +78,7 @@ app.put("/api/emails", function(req, res){
     const  typeEmail = req.body.type;
     const summaryEmail = req.body.summary;
     const recipientsEmail = req.body.recipients;
-    const index = findUserIndexById(id);
+    const index = findEmailIndexById(id);
     
     if(index > -1){
     // изменяем данные у пользователя
@@ -71,3 +94,6 @@ app.put("/api/emails", function(req, res){
       res.status(404).send("User not found");
     }
   });
+  app.listen(3000, function(){
+    console.log("Сервер ожидает подключения...");
+   });
