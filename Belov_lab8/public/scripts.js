@@ -189,6 +189,8 @@ function openTab(evt, tabName) {
     displaybooksByDate();
   } else if (tabName === 'ByOwnerName') {
     displayBooksByOwnerName();
+  } else if (tabName === 'manageBooks') {
+    loadManageBooks();
   }
 }
 
@@ -272,5 +274,62 @@ function borrowBook() {
     });
   } else {
     alert('Заполните ФИО и дату');
+  }
+}
+
+function loadManageBooks() {
+  $('#manageBookSelect').empty();
+  $.ajax({
+    url: '/api/books',
+    type: 'GET',
+    success: function(books) {
+      books.forEach(book => {
+        const option = `<option value="${book._id}">${book.title}</option>`;
+        $('#manageBookSelect').append(option);
+      });
+    },
+    error: function(error) {
+      console.error('Error fetching books:', error);
+    }
+  });
+}
+
+function returnBook() {
+  const bookId = $('#manageBookSelect').val();
+  if (bookId) {
+    $.ajax({
+      url: `/api/books/${bookId}`,
+      type: 'PUT',
+      contentType: 'application/json',
+      data: JSON.stringify({ ownerName: '', returnDate: '' }),
+      success: function() {
+        alert('Книга успешно возвращена.');
+        loadManageBooks();
+      },
+      error: function(error) {
+        console.error('Error returning book:', error);
+      }
+    });
+  } else {
+    alert('Выберите книгу для возврата.');
+  }
+}
+
+function deleteBook() {
+  const bookId = $('#manageBookSelect').val();
+  if (bookId) {
+    $.ajax({
+      url: `/api/books/${bookId}`,
+      type: 'DELETE',
+      success: function() {
+        alert('Книга успешно удалена.');
+        loadManageBooks();
+      },
+      error: function(error) {
+        console.error('Error deleting book:', error);
+      }
+    });
+  } else {
+    alert('Выберите книгу для удаления.');
   }
 }

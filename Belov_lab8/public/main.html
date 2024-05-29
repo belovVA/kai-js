@@ -11,7 +11,6 @@
 </head>
 
 <body>
-
   <div class="tabs">
     <button class="tablinks" onclick="openTab(event, 'borrow')">Взять книгу</button>
     <button class="tablinks" onclick="openTab(event, 'add')">Добавить Книгу</button>
@@ -20,6 +19,7 @@
     <button class="tablinks" onclick="openTab(event, 'byAuthor')">Группировка по Авторам</button>
     <button class="tablinks" onclick="openTab(event, 'ByDate')">Группировка по Дате возврата</button>
     <button class="tablinks" onclick="openTab(event, 'ByOwnerName')">Группировка по ФИО держателя</button>
+    <button class="tablinks" onclick="openTab(event, 'manageBooks')">Управление книгами</button>
   </div>
 
   <div id="add" class="tabcontent">
@@ -80,6 +80,13 @@
     </form>
   </div>
 
-</body>
+  <div id="manageBooks" class="tabcontent">
+    <h2>Управление книгами</h2>
+    <label for="manageBookSelect">Выберите книгу:</label>
+    <select id="manageBookSelect" name="manageBookSelect"></select><br><br>
+    <button type="button" onclick="returnBook()">Вернуть книгу</button>
+    <button type="button" onclick="deleteBook()">Удалить книгу</button>
+  </div>
 
+</body>
 </html>

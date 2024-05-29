@@ -1,6 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const fs = require("fs");
+const path = require("path");
 
 const app = express();
 app.use(express.static("public"));
@@ -19,29 +21,26 @@ const bookSchema = new mongoose.Schema({
 
 const Book = mongoose.model("Book", bookSchema);
 
-// Загрузка книг из books.json при запуске сервера
-function loadOldBooks() {
-  const filePath = path.join(__dirname, 'public', 'books.json');
-  fs.readFile(filePath, 'utf8', async (err, data) => {
-    if (err) {
-      console.error('Error reading books.json:', err);
-      return;
-    }
-    try {
-      const oldBooks = JSON.parse(data);
-      const bookPromises = oldBooks.map(book => new Book(book).save());
-      await Promise.all(bookPromises);
-      console.log('Old books loaded successfully');
-    } catch (error) {
-      console.error('Error loading old books:', error);
-    }
-  });
-}
+// function loadOldBooks() {
+//   const filePath = path.join(__dirname, 'public', 'books.json');
+//   fs.readFile(filePath, 'utf8', async (err, data) => {
+//     if (err) {
+//       console.error('Error reading books.json:', err);
+//       return;
+//     }
+//     try {
+//       const oldBooks = JSON.parse(data);
+//       const bookPromises = oldBooks.map(book => new Book(book).save());
+//       await Promise.all(bookPromises);
+//       console.log('Old books loaded successfully');
+//     } catch (error) {
+//       console.error('Error loading old books:', error);
+//     }
+//   });
+// }
 
-// Вызов функции загрузки старых книг при запуске сервера
-loadOldBooks();
+// loadOldBooks();
 
-// Получение всех книг
 app.get("/api/books", async (req, res) => {
   try {
     const books = await Book.find();
@@ -51,7 +50,6 @@ app.get("/api/books", async (req, res) => {
   }
 });
 
-// Добавление новой книги
 app.post("/api/books", async (req, res) => {
   try {
     const book = new Book(req.body);
@@ -62,7 +60,6 @@ app.post("/api/books", async (req, res) => {
   }
 });
 
-// Получение книги по ID
 app.get("/api/books/:id", async (req, res) => {
   try {
     const book = await Book.findById(req.params.id);
@@ -75,7 +72,6 @@ app.get("/api/books/:id", async (req, res) => {
   }
 });
 
-// Обновление информации о книге
 app.put("/api/books/:id", async (req, res) => {
   try {
     const book = await Book.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
@@ -85,6 +81,18 @@ app.put("/api/books/:id", async (req, res) => {
     res.send(book);
   } catch (error) {
     res.status(400).send(error);
+  }
+});
+
+app.delete("/api/books/:id", async (req, res) => {
+  try {
+    const book = await Book.findByIdAndDelete(req.params.id);
+    if (!book) {
+      return res.status(404).send("Book not found");
+    }
+    res.send({ message: "Book deleted successfully" });
+  } catch (error) {
+    res.status(500).send(error);
   }
 });
 
