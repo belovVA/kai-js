@@ -19,6 +19,28 @@ const bookSchema = new mongoose.Schema({
 
 const Book = mongoose.model("Book", bookSchema);
 
+// Загрузка книг из books.json при запуске сервера
+function loadOldBooks() {
+  const filePath = path.join(__dirname, 'public', 'books.json');
+  fs.readFile(filePath, 'utf8', async (err, data) => {
+    if (err) {
+      console.error('Error reading books.json:', err);
+      return;
+    }
+    try {
+      const oldBooks = JSON.parse(data);
+      const bookPromises = oldBooks.map(book => new Book(book).save());
+      await Promise.all(bookPromises);
+      console.log('Old books loaded successfully');
+    } catch (error) {
+      console.error('Error loading old books:', error);
+    }
+  });
+}
+
+// Вызов функции загрузки старых книг при запуске сервера
+loadOldBooks();
+
 // Получение всех книг
 app.get("/api/books", async (req, res) => {
   try {
