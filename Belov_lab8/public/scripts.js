@@ -191,6 +191,8 @@ function openTab(evt, tabName) {
     displayBooksByOwnerName();
   } else if (tabName === 'manageBooks') {
     loadManageBooks();
+  } else if (tabName === 'editBook'){
+    loadEditBooks();
   }
 }
 
@@ -331,5 +333,72 @@ function deleteBook() {
     });
   } else {
     alert('Выберите книгу для удаления.');
+  }
+}
+
+// Функция загрузки книг для редактирования
+function loadEditBooks() {
+  $('#editBookSelect').empty();
+  $.ajax({
+    url: '/api/books',
+    type: 'GET',
+    success: function(books) {
+      books.forEach(book => {
+        const option = `<option value="${book._id}">${book.title}</option>`;
+        $('#editBookSelect').append(option);
+      });
+    },
+    error: function(error) {
+      console.error('Error fetching books:', error);
+    }
+  });
+}
+
+// Функция загрузки деталей книги в форму редактирования
+function loadBookDetails() {
+  const bookId = $('#editBookSelect').val();
+  if (bookId) {
+    $.ajax({
+      url: `/api/books/${bookId}`,
+      type: 'GET',
+      success: function(book) {
+        $('#editTitle').val(book.title);
+        $('#editPublisher').val(book.publisher);
+        $('#editYear').val(book.year);
+        $('#editAuthors').val(book.authors.join(', '));
+      },
+      error: function(error) {
+        console.error('Error fetching book details:', error);
+      }
+    });
+  }
+}
+
+// Функция редактирования книги
+function editBook() {
+  const bookId = $('#editBookSelect').val();
+  const updatedBook = {
+    title: $('#editTitle').val(),
+    publisher: $('#editPublisher').val(),
+    year: $('#editYear').val(),
+    authors: $('#editAuthors').val().split(',').map(author => author.trim())
+  };
+
+  if (bookId) {
+    $.ajax({
+      url: `/api/books/${bookId}`,
+      type: 'PUT',
+      contentType: 'application/json',
+      data: JSON.stringify(updatedBook),
+      success: function() {
+        alert('Данные книги успешно обновлены.');
+        loadEditBooks();
+      },
+      error: function(error) {
+        console.error('Error updating book:', error);
+      }
+    });
+  } else {
+    alert('Выберите книгу для редактирования.');
   }
 }
