@@ -3,9 +3,10 @@ const fs = require("fs");
 const path = require("path");
 const app = express();
 app.use(express.json());
-app.use(express.static("public"));
+app.use(express.static("./public"));
 const books = []
 let id = 1;
+
 
 function findBookIndexById(id){
   for(let i=0; i < books.length; i++){
