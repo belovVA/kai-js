@@ -1,0 +1,23 @@
+[
+  {
+    "title": "Война и мир",
+    "authors": "Л.Н. Толстой",
+    "publisher": "Издательство А",
+    "ownerName": "Иван Иванов",
+    "returnDate": "2024-05-20"
+  },
+  {
+    "title": "Анна Каренина",
+    "authors": "Л.Н. Толстой",
+    "publisher": "Издательство Б",
+    "ownerName": "Мария Петрова",
+    "returnDate": ""
+  },
+  {
+    "title": "Отцы и Дети",
+    "authors": "Тургенев",
+    "publisher": "Издательство В",
+    "ownerName": "",
+    "returnDate": ""
+  }
+]
