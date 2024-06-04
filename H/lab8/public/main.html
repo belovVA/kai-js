@@ -20,6 +20,8 @@
     <button class="tablinks" onclick="openTab(event, 'byPublisher')">Группировка по Издательству</button>
     <button class="tablinks" onclick="openTab(event, 'ByDate')">Группировка по Дате возврата</button>
     <button class="tablinks" onclick="openTab(event, 'ByOwnerName')">Группировка по ФИО держателя</button>
+    <button class="tablinks" onclick="openTab(event, 'manageBooks')">Управление книгами</button>
+    <button class="tablinks" onclick="openTab(event, 'editBook')">Изменить Книгу</button>
   </div>
 
   <div id="add" class="tabcontent">
@@ -77,7 +79,29 @@
       <button type="button" onclick="borrowBook()">Взять книгу</button>
     </form>
   </div>
+  <div id="manageBooks" class="tabcontent">
+    <h2>Управление книгами</h2>
+    <label for="manageBookSelect">Выберите книгу:</label>
+    <select id="manageBookSelect" name="manageBookSelect"></select><br><br>
+    <button type="button" onclick="returnBook()">Вернуть книгу</button>
+    <button type="button" onclick="deleteBook()">Удалить книгу</button>
+  </div>
 
+  <div id="editBook" class="tabcontent">
+    <h2>Изменить данные книги</h2>
+    <label for="editBookSelect">Выберите книгу:</label>
+    <select id="editBookSelect" name="editBookSelect" onchange="loadBookDetails()"></select><br><br>
+    <form id="editBookForm">
+      <label for="editTitle">Название:</label>
+      <input type="text" id="editTitle" name="editTitle" required><br><br>
+      <label for="editPublisher">Издательство (через запятую):</label>
+      <input type="text" id="editPublisher" name="editPublisher" required><br><br>
+      <label for="editAuthors">Авторы :</label>
+      <input type="text" id="editAuthors" name="editAuthors" required><br><br>
+      <button type="button" onclick="editBook()">Сохранить изменения</button>
+    </form>
+  </div>
+  
 </body>
 
 </html>

@@ -13,7 +13,7 @@ mongoose.connect("mongodb://localhost:27017/library", { useNewUrlParser: true, u
 const bookSchema = new mongoose.Schema({
   title: String,
   publisher: String,
-  authors: [String],
+  authors: String,
   ownerName: String,
   returnDate: String
 });
