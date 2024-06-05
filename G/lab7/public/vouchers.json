@@ -1,0 +1,37 @@
+[
+  {
+    "country": "Италия",
+    "departureDate": "2024-06-15",
+    "duration": 7,
+    "stars": 5,
+    "hotelName": ["Grand Hotel Excelsior", "Hotel Bella Vista"]
+  },
+  {
+    "country": "Франция",
+    "departureDate": "2024-07-20",
+    "duration": 10,
+    "stars": 4,
+    "hotelName": ["Ritz Paris"]
+  },
+  {
+    "country": "Испания",
+    "departureDate": "2024-08-10",
+    "duration": 5,
+    "stars": 3,
+    "hotelName": ["Barcelona Princess Hotel"]
+  },
+  {
+    "country": "Греция",
+    "departureDate": "2024-09-01",
+    "duration": 14,
+    "stars": 5,
+    "hotelName": ["Astir Palace", "Four Seasons Astir Palace Hotel Athens"]
+  },
+  {
+    "country": "Турция",
+    "departureDate": "2024-10-15",
+    "duration": 7,
+    "stars": 4,
+    "hotelName": ["Rixos Premium Belek"]
+  }
+]

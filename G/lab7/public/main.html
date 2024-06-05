@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Автостоянка</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="tabs">
+    <button class="tablink" data-tab="add">Добавить путевку</button>
+    <button class="tablink" data-tab="newVouchers">Новые путевки</button>
+    <button class="tablink" data-tab="oldVouchers">Старые путевки</button>
+    <button class="tablink" data-tab="groupByCountry">Группировка по стране</button>
+    <button class="tablink" data-tab="groupByDate">Группировка по дате вылета</button>
+    <button class="tablink" data-tab="groupByHotel">Группировать по отелям</button>
+
+  </div>
+
+  <div id="add" class="tabcontent">
+    <h2>Добавить путевку</h2>
+    <form>
+      Страна: <input type="text" id="country"><br>
+      Дата вылета: <input type="date" id="departureDate"><br>
+      Длительность (дней): <input type="number" id="duration"><br>
+      Количество звёзд: <input type="number" id="stars"><br>
+      Название(-я) отеля: <input type="text" id="hotelName"><br>
+      <button type="button" onclick="addVoucher()">Добавить</button>
+    </form>
+  </div>
+
+  <div id="oldVouchers" class="tabcontent">
+    <h2>Старые путевки</h2>
+    <div id="oldVouchersContainer"></div>
+  </div>
+
+  <div id="newVouchers" class="tabcontent">
+    <h2>Новые путевки</h2>
+    <div id="newVouchersContainer"></div>
+  </div>
+
+  <div id="groupByCountry" class="tabcontent">
+    <h2>Группировка по стране</h2>
+    <div id="groupByCountryContainer"></div>
+  </div>
+
+  <div id="groupByDate" class="tabcontent">
+    <h2>Группировка по дате вылета</h2>
+    <div id="groupByDateContainer"></div>
+  </div>
+
+  <div id="groupByHotel" class="tabcontent">
+    <h2>Группировка по отелям</h2>
+    <div id="groupByHotelContainer"></div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
